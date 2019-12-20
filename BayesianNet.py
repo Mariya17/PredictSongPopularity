@@ -2,27 +2,29 @@ import pandas as pd
 from pgmpy.models import BayesianModel
 from pgmpy.estimators import ParameterEstimator
 from pgmpy.estimators import BayesianEstimator
-'''
-data = pd.DataFrame(data={'fruit': ["banana", "apple", "banana", "apple", "banana","apple", "banana",
-                                    "apple", "apple", "apple", "banana", "banana", "apple", "banana",],
-                          'tasty': ["yes", "no", "yes", "yes", "yes", "yes", "yes",
-                                    "yes", "yes", "yes", "yes", "no", "no", "no"],
-                          'size': ["large", "large", "large", "small", "large", "large", "large",
-                                    "small", "large", "large", "large", "large", "small", "small"]})
-print(data)
+from collections import OrderedDict
 
-model = BayesianModel([('fruit', 'tasty'), ('size', 'tasty')])  # fruit -> tasty <- size
+def BayesianModel():
+    data = pd.DataFrame(data={'fruit': ["banana", "apple", "banana", "apple", "banana","apple", "banana",
+                                        "apple", "apple", "apple", "banana", "banana", "apple", "banana",],
+                              'tasty': ["yes", "no", "yes", "yes", "yes", "yes", "yes",
+                                        "yes", "yes", "yes", "yes", "no", "no", "no"],
+                              'size': ["large", "large", "large", "small", "large", "large", "large",
+                                        "small", "large", "large", "large", "large", "small", "small"]})
+    print(data)
 
-pe = ParameterEstimator(model, data)
-print("\n", pe.state_counts('fruit'))  # unconditional
-print("\n", pe.state_counts('tasty'))  # conditional on fruit and size
+    model = BayesianModel([('fruit', 'tasty'), ('size', 'tasty')])  # fruit -> tasty <- size
 
-est = BayesianEstimator(model, data)
+    pe = ParameterEstimator(model, data)
+    print("\n", pe.state_counts('fruit'))  # unconditional
+    print("\n", pe.state_counts('tasty'))  # conditional on fruit and size
 
-print(est.estimate_cpd('tasty', prior_type='BDeu', equivalent_sample_size=10))
+    est = BayesianEstimator(model, data)
 
-'''
-def categorize_value(value, min_val, step_range):
+    print(est.estimate_cpd('tasty', prior_type='BDeu', equivalent_sample_size=10))
+
+
+def categorize_value_to_equal_range(value, min_val, step_range):
     if value < (min_val + step_range * 0):
         return 0
     elif value < (min_val + step_range * 1):
@@ -37,15 +39,14 @@ def categorize_value(value, min_val, step_range):
         return 5
     else:
         return 6
-def data_preporation():
+
+def data_preprosessing():
+    uniform_distribution = True
     data_frame = pd.read_csv('Short_song_data.csv')
-   # song_name_column = pd.read_csv('Short_song_data.csv',usecols=['song_name'])
-   # song_popularity_column = pd.read_csv('Short_song_data.csv',usecols=['song_popularity'])
 
-
-    header_list = ["song_name","song_popularity","acousticness","danceability","energy","instrumentalness","key","liveness","loudness","audio_mode","speechiness","tempo","time_signature","audio_valence"]
-    header_sublist = ["acousticness","danceability","energy","instrumentalness","liveness","loudness","speechiness","tempo","audio_valence"]
-
+    header_list = ["song_name","song_popularity","song_duration_ms","acousticness","danceability","energy","instrumentalness","key","liveness","loudness","audio_mode","speechiness","tempo","time_signature","audio_valence"]
+    header_sublist = ["song_duration_ms","acousticness","danceability","energy","instrumentalness","liveness","loudness","speechiness","tempo","audio_valence"]
+    #take values as is
     new_data_frame = pd.DataFrame({'song_name': data_frame['song_name'],
                                    'key': data_frame['key'],
                                    'audio_mode': data_frame['audio_mode'],
@@ -66,15 +67,60 @@ def data_preporation():
 
     new_data_frame['song_popularity'] = new_column
 
+    if uniform_distribution:
+        for column in range(len(header_sublist)):
+            new_data_frame[header_sublist[column]] = data_preprosessing_uniform_distribution(data_frame, header_sublist[column],8)
+        new_data_frame.to_csv('db_uniform_distribution.csv')
+    else:
+        data_preprosessing_equal_range(data_frame, new_data_frame, header_sublist)
+        new_data_frame.to_csv('db_equal_steps.csv')
 
+#divide data to equal groups
+def data_preprosessing_uniform_distribution(data_frame, column_name, num_of_groups ):
+    new_column = []
+    line_of_value = {}
+    column_size = len(data_frame[column_name])
+    group_size = column_size/num_of_groups
+
+    #create a dictionary of line number=key and value in purpose to recreate original line of each value
+    for i in range(column_size):
+        line_of_value[i] = data_frame[column_name][i]
+
+    #sort a column and divide it to equal groups for uniform distribution
+   # sorted(line_of_value.items(), key=itemgetter(1))
+    sorted_values = OrderedDict(sorted(line_of_value.items(),  key=lambda x: x[1]))
+
+    j = 0
+    dict_of_new_values = {}
+    for group_number in range(num_of_groups):
+        for i in range(int(group_size)):
+            last_item = sorted_values.popitem()
+            dict_of_new_values[last_item[0]] = num_of_groups - group_number - 1
+        j += (i + 1)
+    while j < column_size:
+        j += 1
+        last_item = sorted_values.popitem()
+        dict_of_new_values[last_item[0]] = 0
+
+    for i in range(column_size):
+        new_column.append(dict_of_new_values[i])
+    return new_column
+
+def data_preprosessing_equal_range(data_frame, new_data_frame, header_sublist):
     for column in range(len(header_sublist)):
         new_column = []
         max_val = max(data_frame[header_sublist[column]])
         min_val = min(data_frame[header_sublist[column]])
         step_range = (max_val - min_val)/7
         for i in range(len(data_frame[header_sublist[column]])):
-            new_column.append(categorize_value(data_frame[header_sublist[column]][i], min_val, step_range))
+            new_column.append(categorize_value_to_equal_range(data_frame[header_sublist[column]][i], min_val, step_range))
         new_data_frame[header_sublist[column]] = new_column
     new_data_frame.to_csv('db_after_preprosessing.csv')
 
-data_preporation()
+def main():
+    data_preprosessing()
+    # BayesianModel()
+
+
+if __name__ == '__main__':
+    main()
