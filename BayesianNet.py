@@ -1,28 +1,7 @@
 import pandas as pd
-from pgmpy.models import BayesianModel
-from pgmpy.estimators import ParameterEstimator
-from pgmpy.estimators import BayesianEstimator
 from collections import OrderedDict
-
-def BayesianModel():
-    data = pd.DataFrame(data={'fruit': ["banana", "apple", "banana", "apple", "banana","apple", "banana",
-                                        "apple", "apple", "apple", "banana", "banana", "apple", "banana",],
-                              'tasty': ["yes", "no", "yes", "yes", "yes", "yes", "yes",
-                                        "yes", "yes", "yes", "yes", "no", "no", "no"],
-                              'size': ["large", "large", "large", "small", "large", "large", "large",
-                                        "small", "large", "large", "large", "large", "small", "small"]})
-    print(data)
-
-    model = BayesianModel([('fruit', 'tasty'), ('size', 'tasty')])  # fruit -> tasty <- size
-
-    pe = ParameterEstimator(model, data)
-    print("\n", pe.state_counts('fruit'))  # unconditional
-    print("\n", pe.state_counts('tasty'))  # conditional on fruit and size
-
-    est = BayesianEstimator(model, data)
-
-    print(est.estimate_cpd('tasty', prior_type='BDeu', equivalent_sample_size=10))
-
+import K2Algorithm
+import test
 
 def categorize_value_to_equal_range(value, min_val, step_range):
     if value < (min_val + step_range * 0):
@@ -42,10 +21,9 @@ def categorize_value_to_equal_range(value, min_val, step_range):
 
 def data_preprosessing():
     uniform_distribution = True
-    data_frame = pd.read_csv('Short_song_data.csv')
+    data_frame = pd.read_csv('song_data.csv')
 
-    header_list = ["song_name","song_popularity","song_duration_ms","acousticness","danceability","energy","instrumentalness","key","liveness","loudness","audio_mode","speechiness","tempo","time_signature","audio_valence"]
-    header_sublist = ["song_duration_ms","acousticness","danceability","energy","instrumentalness","liveness","loudness","speechiness","tempo","audio_valence"]
+    header_sublist = ['song_duration_ms','acousticness','danceability','energy','instrumentalness','liveness','loudness','speechiness','tempo','audio_valence']
     #take values as is
     new_data_frame = pd.DataFrame({'song_name': data_frame['song_name'],
                                    'key': data_frame['key'],
@@ -74,6 +52,8 @@ def data_preprosessing():
     else:
         data_preprosessing_equal_range(data_frame, new_data_frame, header_sublist)
         new_data_frame.to_csv('db_equal_steps.csv')
+
+    return new_data_frame
 
 #divide data to equal groups
 def data_preprosessing_uniform_distribution(data_frame, column_name, num_of_groups ):
@@ -118,9 +98,13 @@ def data_preprosessing_equal_range(data_frame, new_data_frame, header_sublist):
     new_data_frame.to_csv('db_after_preprosessing.csv')
 
 def main():
-    data_preprosessing()
-    # BayesianModel()
+    header_list = ['song_name', 'song_popularity', 'song_duration_ms', 'acousticness', 'danceability', 'energy',
+                   'instrumentalness', 'key', 'liveness', 'loudness', 'audio_mode', 'speechiness', 'tempo',
+                   'time_signature', 'audio_valence']
 
+    #new_df = data_preprosessing()
+    #K2Algorithm.k2Algorithm(header_list)
+    test.BN()
 
 if __name__ == '__main__':
     main()
