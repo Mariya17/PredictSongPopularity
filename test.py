@@ -4,7 +4,7 @@ from pgmpy.estimators import ParameterEstimator
 from pgmpy.estimators import BayesianEstimator
 
 def BN():
-    data = pd.read_csv('db_uniform_distribution.csv')
+    data = pd.read_csv('db_after_preprosessing.csv')
     model = BayesianModel([('song_duration_ms', 'loudness'), ('tempo', 'loudness'), ('liveness', 'energy'), ('energy', 'song_popularity'), ('loudness', 'song_popularity')])
     #model = BayesianModel([('fruit', 'tasty'), ('size', 'tasty')])  # fruit -> tasty <- size
     pe = ParameterEstimator(model, data)
