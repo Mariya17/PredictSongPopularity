@@ -58,14 +58,15 @@ class K2:
         res = {}
         t = ()
         flatten = itertools.chain.from_iterable
-        listOfInst.append(node.possibleValues)
         if len(parents) > 0:
             for parent in parents:
                 listOfInst.append(parent.possibleValues)
+            listOfInst.append(node.possibleValues)
             allPossibleInstantinations = self.getCartesianProduct(listOfInst)
             for instance in allPossibleInstantinations:
                 res[instance] = 0
         else:
+            listOfInst.append(node.possibleValues)
             listOfInst = flatten(listOfInst)
             for instance in listOfInst:
                 t = (instance,)
@@ -82,9 +83,9 @@ class K2:
     # of instance(tuple) as a key and amount of it's appearances as value
     def calculateNumberOfInstances(self, node, parents, possibleInstances):
         instansesFromDB = []
-        instansesFromDB.append(node.nodeData)
         for parent in parents:
             instansesFromDB.append(parent.nodeData)
+        instansesFromDB.append(node.nodeData)
         for row in range(node.rows):
             instance = self.getInstance(row, instansesFromDB)
             possibleInstances[instance] += 1
@@ -107,9 +108,9 @@ class K2:
         Ni = {}
         i = 0
         listOfInst = []
-        listOfInst.append(node.possibleValues)
         for parent in parents:
             listOfInst.append(parent.possibleValues)
+        listOfInst.append(node.possibleValues)
         allPossibleInstantinations = self.getCartesianProduct(listOfInst)
         for j in range(q):
             Ni[j] = 0
