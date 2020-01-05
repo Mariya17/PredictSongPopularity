@@ -8,11 +8,9 @@ class Node:
         self.name = name
         self.nodeData = nodeData
         self.rows = len(self.nodeData)
-        # self.possibleValues = set(self.nodeData)
         self.possibleValues = self.getPossibleValues()
         self.r = len(self.possibleValues)
         self.listOfParents = []
-
         self.potentialParents = listOfPotentialParents
 
     def getPossibleValues(self):
@@ -50,7 +48,14 @@ class K2:
 
     def getCartesianProduct(self, listOfInst):
         product = list(itertools.product(*listOfInst))
-        return product
+        return sorted(product)
+
+    def getListOfInst(self, node, parents):
+        listOfInst = []
+        for parentNode in self.nodes:
+            if (parentNode in parents) or (parentNode is node):
+                listOfInst.append(parentNode.possibleValues)
+        return listOfInst
 
     def getPossibleInstWithParentsInDB(self, node, parents):
         listOfInst = []
@@ -59,9 +64,7 @@ class K2:
         t = ()
         flatten = itertools.chain.from_iterable
         if len(parents) > 0:
-            for parent in parents:
-                listOfInst.append(parent.possibleValues)
-            listOfInst.append(node.possibleValues)
+            listOfInst = self.getListOfInst(node, parents)
             allPossibleInstantinations = self.getCartesianProduct(listOfInst)
             for instance in allPossibleInstantinations:
                 res[instance] = 0
@@ -83,9 +86,9 @@ class K2:
     # of instance(tuple) as a key and amount of it's appearances as value
     def calculateNumberOfInstances(self, node, parents, possibleInstances):
         instansesFromDB = []
-        for parent in parents:
-            instansesFromDB.append(parent.nodeData)
-        instansesFromDB.append(node.nodeData)
+        for parentNode in self.nodes:
+            if (parentNode in parents) or (parentNode is node):
+                instansesFromDB.append(parentNode.nodeData)
         for row in range(node.rows):
             instance = self.getInstance(row, instansesFromDB)
             possibleInstances[instance] += 1
@@ -97,7 +100,6 @@ class K2:
         res = self.calculateNumberOfInstances(node, parents, res)
         return res
 
-
     def getProductOfAlphaFactorials(self, allAlpha):
         res = 1
         for key, val in allAlpha.items():
@@ -107,14 +109,11 @@ class K2:
     def getAllNij(self, node, q, r, allAlpha, parents):
         Ni = {}
         i = 0
-        listOfInst = []
-        for parent in parents:
-            listOfInst.append(parent.possibleValues)
-        listOfInst.append(node.possibleValues)
+        listOfInst = self.getListOfInst(node, parents)
         allPossibleInstantinations = self.getCartesianProduct(listOfInst)
         for j in range(q):
             Ni[j] = 0
-        for j in range(r):
+        for j in range(q):
             for k in range(r):
                 Ni[j] += allAlpha[allPossibleInstantinations[i]]
                 i += 1
@@ -125,7 +124,7 @@ class K2:
         denominator = math.factorial(Nij + r - 1)
         return numerator/denominator
 
-    def f(self, i, node, parents):
+    def f(self, node, parents):
         numerator = 0
         denominator = 1
         res = 0
@@ -144,7 +143,6 @@ class K2:
             for j in range(q):
                 firstPartProduct = firstPartProduct * self.getProductOfFirstPartOfEquation(node.r, Ni[j])
             secondPartProduct = self.getProductOfAlphaFactorials(allAlpha)
-
             res = firstPartProduct * secondPartProduct
 
         return res
@@ -152,14 +150,13 @@ class K2:
     # Return max value of fumction f and it's node that suppose to be a new parent
     def getMaximizingParent(self, listOfP):
         max = 0
-        node = listOfP[0][1]    # default
+        node = self.nodes[0]   # default
         for element in listOfP:
             temp = element[0]
             if temp > max:
                 max = temp
                 node = element[1]
         return max, node
-
 
     def k2(self):
         """
@@ -169,22 +166,22 @@ class K2:
                 db:       A database D containing m cases
         :return: dependencies: For each node, a printout of the parents of the node
         """
-        for i in range(1, len(self.ordering) + 1):
+        for i in range(len(self.ordering)):
+            pNew = 0
             tempGroupOfParents = self.nodes[i - 1].listOfParents
-            pOld = self.f(i, self.nodes[i-1], tempGroupOfParents)
+            pOld = self.f(self.nodes[i-1], tempGroupOfParents)
             OKToProceed = True
-            while OKToProceed and (len(self.nodes[i-1].listOfParents) < len(self.nodes[i-1].potentialParents)):
+            while OKToProceed and (len(self.nodes[i].listOfParents) < self.u):
                 listOfP = []
-                # tempGroupOfParents = self.nodes[i-1].listOfParents.copy()
-                for parent_z in self.nodes[i-1].potentialParents:
-                    tempGroupOfParents = self.nodes[i - 1].listOfParents.copy()
+                for parent_z in self.nodes[i].potentialParents:
+                    tempGroupOfParents = self.nodes[i].listOfParents.copy()
                     tempGroupOfParents.append(parent_z)
-                    listOfP.append([self.f(i, self.nodes[i-1], tempGroupOfParents), parent_z])
+                    listOfP.append([self.f(self.nodes[i], tempGroupOfParents), parent_z])
                 pNew, newParent = self.getMaximizingParent(listOfP)
                 if pNew > pOld:
                     pOld = pNew
-                    self.nodes[i - 1].listOfParents.append(newParent)
-                    self.nodes[i - 1].potentialParents.remove(newParent)
+                    self.nodes[i].listOfParents.append(newParent)
+                    self.nodes[i].potentialParents.remove(newParent)
                 else:
                     OKToProceed = False
 
@@ -201,7 +198,6 @@ class K2:
 
 def main():
     k2 = K2()
-#    print(k2.db)
     k2.k2()
 
 
