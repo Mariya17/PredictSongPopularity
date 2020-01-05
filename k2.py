@@ -2,34 +2,25 @@ import pandas as pd
 import itertools
 import math
 
+
 class Node:
-    def __init__(self, name, nodeData, listOfPotentialParents, dataListOfPreviousNodes):
+    def __init__(self, name, nodeData, listOfPotentialParents):
         self.name = name
         self.nodeData = nodeData
         self.rows = len(self.nodeData)
-        self.possibleValues = set(self.nodeData)
+        # self.possibleValues = set(self.nodeData)
+        self.possibleValues = self.getPossibleValues()
         self.r = len(self.possibleValues)
         self.listOfParents = []
+
         self.potentialParents = listOfPotentialParents
 
-    # def getPossibleValues(self):
-    #     vals = []
-    #     for row in range(0, self.rows):
-    #         if self.nodeData[row] not in vals:
-    #             vals.append(self.nodeData[row])
-    #     return vals
-
-    # def getPossibleInstOfParentsInDBDONTUSE(self):
-    #     listOfInst = []
-    #     for row in range(0, self.rowDb):
-    #         listParents = []
-    #         for parent in self.phi:
-    #            listParents.append(self.db[parent][row])
-    #         str = ','.join(listParents)
-    #         if str not in listOfInst:
-    #             listOfInst.append(str)
-
-
+    def getPossibleValues(self):
+        vals = []
+        for row in range(0, self.rows):
+            if self.nodeData[row] not in vals:
+                vals.append(self.nodeData[row])
+        return vals
 
 
 class K2Const:
@@ -49,58 +40,111 @@ class K2:
 
     def getDB(self, pathDBFile):
         db = pd.read_csv(pathDBFile)
-    #    self.rowDb, self.colDb = db.shape
         return db
 
     def createNodeList(self, nameOfNodes):
         listOfNodes = []
-        dataListOfPreviousNodes = []
         for node in nameOfNodes:
-            listOfNodes.append(Node(node, self.db[node], listOfNodes.copy(), dataListOfPreviousNodes))
-            dataListOfPreviousNodes.append(self.db[node])       #TODO[Mariya] think is it nessesary
+            listOfNodes.append(Node(node, self.db[node], listOfNodes.copy()))
         return listOfNodes
 
-    def getPssibleInstOfParentsInDB(self, node):
+    def getCartesianProduct(self, listOfInst):
+        product = list(itertools.product(*listOfInst))
+        return product
+
+    def getPossibleInstWithParentsInDB(self, node, parents):
         listOfInst = []
-        res = []
-        for parent in node.potentialParents:
-            listOfInst.append(node.possibleValues(parent))
-        for element in itertools.product(listOfInst):
-            res.append(element)
-        print(res)
+        allPossibleInstantinations = []
+        res = {}
+        t = ()
+        flatten = itertools.chain.from_iterable
+        listOfInst.append(node.possibleValues)
+        if len(parents) > 0:
+            for parent in parents:
+                listOfInst.append(parent.possibleValues)
+            allPossibleInstantinations = self.getCartesianProduct(listOfInst)
+            for instance in allPossibleInstantinations:
+                res[instance] = 0
+        else:
+            listOfInst = flatten(listOfInst)
+            for instance in listOfInst:
+                t = (instance,)
+                res[t] = 0
         return res
-# TODO:[Mariya] add computition also for parents
+
+    def getInstance(self, row, instansesFromDB):
+        instance = ()
+        for inst in instansesFromDB:
+            instance = instance + (inst[row],)
+        return instance
+
+    # This function will summarize all instances and return a dictionary
+    # of instance(tuple) as a key and amount of it's appearances as value
+    def calculateNumberOfInstances(self, node, parents, possibleInstances):
+        instansesFromDB = []
+        instansesFromDB.append(node.nodeData)
+        for parent in parents:
+            instansesFromDB.append(parent.nodeData)
+        for row in range(node.rows):
+            instance = self.getInstance(row, instansesFromDB)
+            possibleInstances[instance] += 1
+        return possibleInstances
+
     def alpha(self, node,  parents =[]):
         res = {}
-        for val in node.possibleValues:
-            res[val] = 0
-        for val in node.nodeData:
-            res[val] += 1
+        res = self.getPossibleInstWithParentsInDB(node, parents)
+        res = self.calculateNumberOfInstances(node, parents, res)
         return res
+
 
     def getProductOfAlphaFactorials(self, allAlpha):
         res = 1
-        for key, val in allAlpha:
+        for key, val in allAlpha.items():
             res *= math.factorial(val)
         return res
+
+    def getAllNij(self, node, q, r, allAlpha, parents):
+        Ni = {}
+        i = 0
+        listOfInst = []
+        listOfInst.append(node.possibleValues)
+        for parent in parents:
+            listOfInst.append(parent.possibleValues)
+        allPossibleInstantinations = self.getCartesianProduct(listOfInst)
+        for j in range(q):
+            Ni[j] = 0
+        for j in range(r):
+            for k in range(r):
+                Ni[j] += allAlpha[allPossibleInstantinations[i]]
+                i += 1
+        return Ni
+
+    def getProductOfFirstPartOfEquation(self, r, Nij):
+        numerator = math.factorial(r - 1)
+        denominator = math.factorial(Nij + r - 1)
+        return numerator/denominator
+
     def f(self, i, node, parents):
         numerator = 0
         denominator = 1
         res = 0
+        firstPartProduct = 1
         if len(parents) == 0:
             allAlpha = self.alpha(node)
             Ni = sum(allAlpha.values())
-            productOfAlphaFactorials = self.getProductOfAlphaFactorials(allAlpha)
             numerator = math.factorial(node.r - 1)
             denominator = math.factorial(Ni + node.r - 1)
+            productOfAlphaFactorials = self.getProductOfAlphaFactorials(allAlpha)
             res = (numerator/denominator)*productOfAlphaFactorials
         else:
             allAlpha = self.alpha(node, parents)
-            Ni = sum(allAlpha.values())
-            productOfAlphaFactorials = self.getProductOfAlphaFactorials(allAlpha)
-            numerator = math.factorial(node.r - 1)
-            denominator = math.factorial(Ni + node.r - 1)
-            res = (numerator / denominator) * productOfAlphaFactorials
+            q = int(len(allAlpha)/node.r)
+            Ni = self.getAllNij(node, q, node.r, allAlpha, parents)
+            for j in range(q):
+                firstPartProduct = firstPartProduct * self.getProductOfFirstPartOfEquation(node.r, Ni[j])
+            secondPartProduct = self.getProductOfAlphaFactorials(allAlpha)
+
+            res = firstPartProduct * secondPartProduct
 
         return res
 
@@ -121,14 +165,15 @@ class K2:
             OKToProceed = True
             while OKToProceed and (len(self.nodes[i-1].listOfParents) < len(self.nodes[i-1].potentialParents)):
                 listOfP = []
-                tempGroupOfParents = self.nodes[i-1].listOfParents
+                tempGroupOfParents = self.nodes[i-1].listOfParents.copy()
                 for parent_z in self.nodes[i-1].potentialParents:
-                    tempGroupOfParents = tempGroupOfParents.append(parent_z)
-                    listOfP.append(self.f(i, tempGroupOfParents))
+                    tempGroupOfParents.append(parent_z)
+                    listOfP.append(self.f(i, self.nodes[i-1], tempGroupOfParents))
                 pNew = max(listOfP)
                 if pNew > pOld:
                     pOld = pNew
                     self.nodes[i - 1].listOfParents.append(parent_z)
+                    self.nodes[i - 1].potentialParents.remove(parent_z)
                 else:
                     OKToProceed = False
                 return
