@@ -148,7 +148,16 @@ class K2:
 
         return res
 
-
+    # Return max value of fumction f and it's node that suppose to be a new parent
+    def getMaximizingParent(self, listOfP):
+        max = 0
+        node = listOfP[0][1]    # default
+        for element in listOfP:
+            temp = element[0]
+            if temp > max:
+                max = temp
+                node = element[1]
+        return max, node
 
 
     def k2(self):
@@ -165,21 +174,26 @@ class K2:
             OKToProceed = True
             while OKToProceed and (len(self.nodes[i-1].listOfParents) < len(self.nodes[i-1].potentialParents)):
                 listOfP = []
-                tempGroupOfParents = self.nodes[i-1].listOfParents.copy()
+                # tempGroupOfParents = self.nodes[i-1].listOfParents.copy()
                 for parent_z in self.nodes[i-1].potentialParents:
+                    tempGroupOfParents = self.nodes[i - 1].listOfParents.copy()
                     tempGroupOfParents.append(parent_z)
-                    listOfP.append(self.f(i, self.nodes[i-1], tempGroupOfParents))
-                pNew = max(listOfP)
+                    listOfP.append([self.f(i, self.nodes[i-1], tempGroupOfParents), parent_z])
+                pNew, newParent = self.getMaximizingParent(listOfP)
                 if pNew > pOld:
                     pOld = pNew
-                    self.nodes[i - 1].listOfParents.append(parent_z)
-                    self.nodes[i - 1].potentialParents.remove(parent_z)
+                    self.nodes[i - 1].listOfParents.append(newParent)
+                    self.nodes[i - 1].potentialParents.remove(newParent)
                 else:
                     OKToProceed = False
-                return
 
         # **********************************************************------>>>
-        dependencies = {}
+        dependencies = []
+        for node in self.nodes:
+            for parent in node.listOfParents:
+                dependencies.append((parent.name, node.name))
+
+        print(dependencies)
         return dependencies
 
 
