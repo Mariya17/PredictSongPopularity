@@ -1,6 +1,7 @@
 import pandas as pd
 import itertools
 import math
+from decimal import Decimal
 
 
 class Node:
@@ -22,18 +23,14 @@ class Node:
 
 
 class K2Const:
-        # DIRECTORY_OF_DB_CSV_PATH = 'db_after_preprosessing.csv'
-        DIRECTORY_OF_DB_CSV_PATH = 'dbForTest.csv'
-        U =                         2
+        U =                         13
 
 class K2:
 
-    def __init__(self):
+    def __init__(self, ordered_list, db_file_name):
         self.u = K2Const.U
-        self.db = self.getDB(K2Const.DIRECTORY_OF_DB_CSV_PATH)
-        # self.ordering = ['song_duration_ms', 'acousticness', 'danceability', 'song_popularity']
-        # self.nodes = self.createNodeList(['song_duration_ms', 'acousticness', 'danceability', 'song_popularity'])
-        self.ordering = ['x1', 'x2', 'x3']
+        self.db = self.getDB(db_file_name)
+        self.ordering = ordered_list
         self.nodes = self.createNodeList(self.ordering)
 
     def getDB(self, pathDBFile):
@@ -103,7 +100,7 @@ class K2:
     def getProductOfAlphaFactorials(self, allAlpha):
         res = 1
         for key, val in allAlpha.items():
-            res *= math.factorial(val)
+            res *= Decimal(math.factorial(val))
         return res
 
     def getAllNij(self, node, q, r, allAlpha, parents):
@@ -121,7 +118,7 @@ class K2:
 
     def getProductOfFirstPartOfEquation(self, r, Nij):
         numerator = math.factorial(r - 1)
-        denominator = math.factorial(Nij + r - 1)
+        denominator = Decimal(math.factorial(Nij + r - 1))
         return numerator/denominator
 
     def f(self, node, parents):
@@ -133,7 +130,7 @@ class K2:
             allAlpha = self.alpha(node)
             Ni = sum(allAlpha.values())
             numerator = math.factorial(node.r - 1)
-            denominator = math.factorial(Ni + node.r - 1)
+            denominator = Decimal(math.factorial(Ni + node.r - 1))
             productOfAlphaFactorials = self.getProductOfAlphaFactorials(allAlpha)
             res = (numerator/denominator)*productOfAlphaFactorials
         else:
@@ -193,16 +190,3 @@ class K2:
 
         print(dependencies)
         return dependencies
-
-
-
-def main():
-    k2 = K2()
-    k2.k2()
-
-
-
-
-
-if __name__ == '__main__':
-  main()
