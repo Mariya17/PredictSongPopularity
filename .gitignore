@@ -2,4 +2,5 @@
 PrevAttempts
 vnew
 New Text Document.txt
-db_after_preprosessing.csv
+
+*.pyc
