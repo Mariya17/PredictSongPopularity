@@ -1,11 +1,11 @@
 import pandas as pd
 from collections import OrderedDict
-import k2
-import BayesianNetwork
+import Clustering
+import numpy as np
+from sklearn.cluster import MeanShift, estimate_bandwidth
 
 class DataPeprocessing:
-    def __init__(self, DB_file_name, uniform_distribution, output_file_name):
-        self.uniform_distribution = uniform_distribution
+    def __init__(self, DB_file_name, output_file_name):
         self.data_frame = pd.read_csv(DB_file_name)
         self.output_file_name = output_file_name
         self.header_sublist = ['song_duration_ms',
@@ -81,15 +81,42 @@ class DataPeprocessing:
                 new_column.append(new)
             self.new_data_frame[self.header_sublist[column]] = new_column
 
-    def data_preprosessing(self):
+
+    def meanShift(column):
+        X = np.reshape(column, (-1, 1))
+
+        bandwidth = estimate_bandwidth(X, quantile=0.1)
+        ms = MeanShift(bandwidth=bandwidth, bin_seeding=True)
+        # ms = MeanShift(bandwidth=None, bin_seeding=True)
+        ms.fit(X)
+        labels = ms.labels_
+        cluster_centers = ms.cluster_centers_
+
+        return labels, cluster_centers
+
+    """
+    Thtis method will prepare the data by three optional methods:
+    1. 'MeanShirf' - default
+    2. 'Uniform Distribution'
+    3. 'Equal Steps'
+    """
+    def data_preprosessing(self, method = 'MeanShirf'):
         new_column = []
 
-        if self.uniform_distribution:
+        if method == 'Uniform Distribution':
             for column in range(len(self.header_sublist)):
                 self.new_data_frame[self.header_sublist[column]] = self.data_preprosessing_uniform_distribution(self.header_sublist[column], 8)
-        else:
+        elif method == 'Equal Steps':
             self.data_preprosessing_equal_range()
+        else:   #'MeanShirf'
+            for column in self.header_sublist:
+                labled_column, cluster_centers = Clustering.meanShift(self.data_frame[column].values)
+                #####################################################################################
+                #   we need cluster_centers for future prediction and clustering of a new song     #
+                #####################################################################################
+                self.new_data_frame[column] = labled_column
 
+        #####################################
         for i in range(len(self.data_frame['song_popularity'])):
             if self.data_frame['song_popularity'][i] < 20:
                 new_column.append(0)
