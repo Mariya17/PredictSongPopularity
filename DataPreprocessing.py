@@ -36,8 +36,12 @@ class DataPeprocessing:
             return 3
         elif value < (min_val + step_range * 5):
             return 4
-        else:
+        elif value < (min_val + step_range * 6):
             return 5
+        elif value < (min_val + step_range * 7):
+            return 6
+        else:
+            return 7
 
 
     # divide data to equal groups
@@ -75,7 +79,7 @@ class DataPeprocessing:
             new_column = []
             max_val = max(self.data_frame[self.header_sublist[column]])
             min_val = min(self.data_frame[self.header_sublist[column]])
-            step_range = (max_val - min_val)/6
+            step_range = (max_val - min_val)/8
             for i in range(len(self.data_frame[self.header_sublist[column]])):
                 new = self.categorize_value_to_equal_range(self.data_frame[self.header_sublist[column]][i], min_val, step_range)
                 new_column.append(new)
@@ -85,7 +89,7 @@ class DataPeprocessing:
     def meanShift(column):
         X = np.reshape(column, (-1, 1))
 
-        bandwidth = estimate_bandwidth(X, quantile=0.1)
+        bandwidth = estimate_bandwidth(X, quantile=0.08)
         ms = MeanShift(bandwidth=bandwidth, bin_seeding=True)
         # ms = MeanShift(bandwidth=None, bin_seeding=True)
         ms.fit(X)
@@ -124,10 +128,12 @@ class DataPeprocessing:
                 new_column.append(1)
             elif self.data_frame['song_popularity'][i] < 60:
                 new_column.append(2)
-            elif self.data_frame['song_popularity'][i] < 80:
+            elif self.data_frame['song_popularity'][i] < 70:
                 new_column.append(3)
-            else:
+            elif self.data_frame['song_popularity'][i] < 80:
                 new_column.append(4)
+            else:
+                new_column.append(5)
 
         self.new_data_frame['song_popularity'] = new_column
 
