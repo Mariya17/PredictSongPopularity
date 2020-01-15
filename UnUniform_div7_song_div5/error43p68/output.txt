@@ -1,0 +1,10 @@
+[('tempo', 'audio_mode'), ('audio_mode', 'song_duration_ms'), ('tempo', 'time_signature'), 
+('acousticness', 'instrumentalness'), ('acousticness', 'loudness'), ('instrumentalness', 'loudness'), 
+('tempo', 'speechiness'), ('audio_valence', 'danceability'), ('tempo', 'danceability'), ('speechiness', 'danceability'), 
+('instrumentalness', 'song_popularity'), ('loudness', 'song_popularity')]
+
+
+
+Name: song_popularity, Length: 1884, dtype: int64]
+MSE is: 1.407112526539278%
+Error Rate is: 43.68011323425358%

@@ -1,0 +1,14 @@
+						[
+						 'tempo',
+				        	 'audio_mode',
+				        	 'song_duration_ms',
+				        	 'key',
+				        	 'time_signature',
+				        	 'acousticness',
+				        	 'instrumentalness',
+				        	 'liveness','loudness',
+				        	 'speechiness',
+				        	 'audio_valence',
+				        	 'danceability',
+				        	 'energy',
+                             			 'song_popularity']
