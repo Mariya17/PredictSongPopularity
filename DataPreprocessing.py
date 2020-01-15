@@ -2,11 +2,13 @@ import pandas as pd
 from collections import OrderedDict
 import Clustering
 import numpy as np
+from sklearn import preprocessing
 from sklearn.cluster import MeanShift, estimate_bandwidth
 
 class DataPeprocessing:
     def __init__(self, DB_file_name, output_file_name):
         self.data_frame = pd.read_csv(DB_file_name)
+        self.normalized_data = pd.DataFrame()
         self.output_file_name = output_file_name
         self.header_sublist = ['song_duration_ms',
                                'acousticness',
@@ -79,22 +81,29 @@ class DataPeprocessing:
             new_column = []
             max_val = max(self.data_frame[self.header_sublist[column]])
             min_val = min(self.data_frame[self.header_sublist[column]])
-            step_range = (max_val - min_val)/8
+            step_range = (max_val - min_val)/6
             for i in range(len(self.data_frame[self.header_sublist[column]])):
                 new = self.categorize_value_to_equal_range(self.data_frame[self.header_sublist[column]][i], min_val, step_range)
                 new_column.append(new)
             self.new_data_frame[self.header_sublist[column]] = new_column
 
 
-    def meanShift(column):
+    def meanShift(self, column):
         X = np.reshape(column, (-1, 1))
 
-        bandwidth = estimate_bandwidth(X, quantile=0.08)
+        bandwidth = estimate_bandwidth(X, quantile=0.1)
         ms = MeanShift(bandwidth=bandwidth, bin_seeding=True)
         # ms = MeanShift(bandwidth=None, bin_seeding=True)
         ms.fit(X)
         labels = ms.labels_
         cluster_centers = ms.cluster_centers_
+
+        labels_unique = np.unique(labels)
+        n_clusters_ = len(labels_unique)
+
+        for k in range(n_clusters_):
+            my_members = labels == k
+            print("cluster {0}: {1}".format(k, X[my_members, 0]))
 
         return labels, cluster_centers
 
@@ -105,7 +114,9 @@ class DataPeprocessing:
     3. 'Equal Steps'
     """
     def data_preprosessing(self, method = 'MeanShirf'):
+
         new_column = []
+
 
         if method == 'Uniform Distribution':
             for column in range(len(self.header_sublist)):
@@ -114,7 +125,7 @@ class DataPeprocessing:
             self.data_preprosessing_equal_range()
         else:   #'MeanShirf'
             for column in self.header_sublist:
-                labled_column, cluster_centers = Clustering.meanShift(self.data_frame[column].values)
+                labled_column, cluster_centers = self.meanShift(self.data_frame[column].values)
                 #####################################################################################
                 #   we need cluster_centers for future prediction and clustering of a new song     #
                 #####################################################################################
@@ -128,9 +139,9 @@ class DataPeprocessing:
                 new_column.append(1)
             elif self.data_frame['song_popularity'][i] < 60:
                 new_column.append(2)
-            elif self.data_frame['song_popularity'][i] < 70:
+            elif self.data_frame['song_popularity'][i] < 75:
                 new_column.append(3)
-            elif self.data_frame['song_popularity'][i] < 80:
+            elif self.data_frame['song_popularity'][i] < 85:
                 new_column.append(4)
             else:
                 new_column.append(5)
