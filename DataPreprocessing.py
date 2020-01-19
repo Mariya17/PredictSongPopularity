@@ -1,9 +1,8 @@
 import pandas as pd
 from collections import OrderedDict
-import Clustering
 import numpy as np
-from sklearn import preprocessing
 from sklearn.cluster import MeanShift, estimate_bandwidth
+
 
 class DataPeprocessing:
     def __init__(self, DB_file_name, output_file_name):
@@ -81,7 +80,7 @@ class DataPeprocessing:
             new_column = []
             max_val = max(self.data_frame[self.header_sublist[column]])
             min_val = min(self.data_frame[self.header_sublist[column]])
-            step_range = (max_val - min_val)/6
+            step_range = (max_val - min_val)/7
             for i in range(len(self.data_frame[self.header_sublist[column]])):
                 new = self.categorize_value_to_equal_range(self.data_frame[self.header_sublist[column]][i], min_val, step_range)
                 new_column.append(new)
@@ -120,7 +119,7 @@ class DataPeprocessing:
 
         if method == 'Uniform Distribution':
             for column in range(len(self.header_sublist)):
-                self.new_data_frame[self.header_sublist[column]] = self.data_preprosessing_uniform_distribution(self.header_sublist[column], 8)
+                self.new_data_frame[self.header_sublist[column]] = self.data_preprosessing_uniform_distribution(self.header_sublist[column], 6)
         elif method == 'Equal Steps':
             self.data_preprosessing_equal_range()
         else:   #'MeanShirf'
@@ -139,12 +138,10 @@ class DataPeprocessing:
                 new_column.append(1)
             elif self.data_frame['song_popularity'][i] < 60:
                 new_column.append(2)
-            elif self.data_frame['song_popularity'][i] < 75:
+            elif self.data_frame['song_popularity'][i] < 80:
                 new_column.append(3)
-            elif self.data_frame['song_popularity'][i] < 85:
-                new_column.append(4)
             else:
-                new_column.append(5)
+                new_column.append(4)
 
         self.new_data_frame['song_popularity'] = new_column
 
