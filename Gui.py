@@ -199,7 +199,9 @@ class SeaofBTCapp(tk.Tk):
 
         self.frames = {}
 
-        for F in (MainGUI, PageOne, PageTwo):
+        for F in (MainGUI,
+                  PageOne,
+                  PageTwo):
             frame = F(container, self)
 
             self.frames[F] = frame
@@ -235,15 +237,22 @@ class PageOne(tk.Frame):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Page One!!!", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
+        self.contriller = controller
 
-        button1 = tk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(MainGUI))
+        button1 = tk.Button(self, text="Back to Home", command=lambda: controller.show_frame(MainGUI))
         button1.pack()
 
-        button2 = tk.Button(self, text="Page Two",
-                            command=lambda: controller.show_frame(PageTwo))
+        button2 = tk.Button(self, text="Page Two", command=self.loginFunc)
         button2.pack()
 
+    def loginFunc(self):
+        print("loging funck")
+        # IDAns = self.entryID.get()
+        # print(IDAns)
+        # self.entryTextID.set("gggg")
+        # PasswordAns = self.entryPassword.get()
+        # print(PasswordAns)
+        lambda: self.controller.show_frame(PageTwo)
 
 class PageTwo(tk.Frame):
 
