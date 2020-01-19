@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import *
 import tkinter.messagebox
 from PIL import Image, ImageTk
+import GraphsGui
 
 LARGE_FONT = ("Verdana", 18)
 
@@ -33,7 +34,8 @@ class GuiController(tk.Tk):
 
         for F in (MainGUI,
                   PageOne,
-                  PageTwo):
+                  PageTwo,
+                  GraphsGui.GraphsPage):
             frame = F(container, self)
 
             self.frames[F] = frame
@@ -72,15 +74,21 @@ class MainGUI(tk.Frame):
         centerFrame.grid(column=0, row=4)
 
         label = tk.Label(self, text="Main", font=LARGE_FONT)
-        label.grid(column=1, row=1)
+        label.grid(column=1, row=1, pady=3)
 
         button = tk.Button(self, text="User",
                            command=lambda: controller.show_frame(PageOne))
-        button.grid(column=1, row=2)
+        button.grid(column=1, row=2, pady=3)
 
         button2 = tk.Button(self, text="Administrator",
                             command=lambda: controller.show_frame(PageTwo))
-        button2.grid(column=1, row=3)
+        button2.grid(column=1, row=3, pady=3)
+
+        button3 = tk.Button(self, text="Visit Administrator Page",
+                            command=lambda: controller.show_frame(GraphsGui.GraphsPage))
+        button3.grid(column=1, row=4, pady=3)
+
+
 
 
 class PageOne(tk.Frame):
