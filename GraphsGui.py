@@ -13,38 +13,41 @@ LARGE_FONT = ("Verdana", 12)
 class GraphsPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.label = tk.Label(self, text="Admin Page!!!", font=LARGE_FONT)
-        self.label.pack(pady=30, padx=30)
         self.controller = controller
 
-        button1 = tk.Button(self, text="Back to Home", command=lambda: controller.show_frame(MainGUI))
-        button1.pack()
+        topFrame = tk.Frame(self, height=0 + 15)
+        topFrame.grid(column=0, row=0)
 
-        button2 = tk.Button(self, text="Page Two", command=self.loginFunc)
-        button2.pack()
+        leftFrame = tk.Frame(self, width=0 + 200)
+        leftFrame.grid(column=0, row=0)
+
+        centerFrame = tk.Frame(self, height=45)
+        centerFrame.grid(column=0, row=4)
+
+        label = tk.Label(self, text="Administrator", font=LARGE_FONT)
+        label.grid(column=1, row=1)
+
+        button2 = tk.Button(self, text="Back", command=lambda: self.controller.show_frame(Gui.PageOne))
+        button2.grid(column=1, row=3)
         ######################### Browse a file ########################
         self.labelFrame = ttk.LabelFrame(self, text="Open File")
-        self.labelFrame.pack()
+        self.labelFrame.grid()
 
-        self.button()
+        self.browseButton = ttk.Button(self.labelFrame, text="Browse A Song Parameters File", command=self.fileDialog)
+        self.browseButton.grid(column=1, row=1, pady=4)
 
-    def button(self):
-        self.button = ttk.Button(self.labelFrame, text="Browse A File", command=self.fileDialog)
-        self.button.grid(column=1, row=1)
+        self.trainButton = ttk.Button(self.labelFrame, text="Browse A Song Parameters File", command=self.trainDB)
+        self.trainButton.grid(column=1, row=2, pady=4)
+
 
     def fileDialog(self):
         self.filename = filedialog.askopenfilename(initialdir="/", title="Select A File", filetype=
         (("jpeg files", "*.csv"), ("all files", "*.*")))
         self.label = ttk.Label(self.labelFrame, text="")
-        self.label.grid(column=1, row=2)
+        self.label.grid(column=2, row=1)
         self.label.configure(text=self.filename)
 
         ######################### Browse a file ########################
-    def loginFunc(self):
-        print("loging funck")
-        # IDAns = self.entryID.get()
-        # print(IDAns)
-        # self.entryTextID.set("gggg")
-        # PasswordAns = self.entryPassword.get()
-        # print(PasswordAns)
-        lambda: self.controller.show_frame(GraphsPage)
+
+    def trainDB(self):
+        dbName = self.filename
