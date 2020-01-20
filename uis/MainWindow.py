@@ -8,14 +8,13 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 from AdministratorGui import Ui_AdministratorWindow
 
 class Ui_MainWindow(object):
     def openAdminWindow(self):
         self.window = QtWidgets.QDialog()
         self.ui = Ui_AdministratorWindow()
-        self.ui.setupUi(self.window)
+        self.ui.seupUi(self.window)
         MainWindow.hide()
         self.window.show()
 
@@ -24,9 +23,9 @@ class Ui_MainWindow(object):
         MainWindow.resize(700, 609)
         MainWindow.setStyleSheet("background-color: rgb(76, 153, 229);\n"
 "")
-        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.userBT = QPushButton(self.centralwidget)
+        self.userBT = QtWidgets.QPushButton(self.centralwidget)
         self.userBT.setGeometry(QtCore.QRect(60, 50, 186, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
@@ -45,8 +44,7 @@ class Ui_MainWindow(object):
 "padding: 6px;\n"
 "")
         self.userBT.setObjectName("userBT")
-        self.AdministratorBT = QPushButton(self.centralwidget)
-        self.AdministratorBT.setToolTip('Click if you want to build new prediction model')
+        self.AdministratorBT = QtWidgets.QPushButton(self.centralwidget)
         self.AdministratorBT.setGeometry(QtCore.QRect(410, 50, 186, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
@@ -65,13 +63,13 @@ class Ui_MainWindow(object):
 "padding: 6px;\n"
 "")
         self.AdministratorBT.setObjectName("AdministratorBT")
-        # Connect the button to the function
-        self.AdministratorBT.clicked.connect(self.openAdminWindow)
+
+        self.AdministratorBT.clicked.connect(self.openAdminWindow())
 
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(0, 180, 701, 391))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("microphoneBackground.png"))
+        self.label.setPixmap(QtGui.QPixmap("../microphoneBackground.png"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -88,10 +86,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-
-        MainWindow.setWindowTitle('Main Window')
-        MainWindow.setWindowIcon(QtGui.QIcon('icon.png'))
-
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.userBT.setText(_translate("MainWindow", "User"))
         self.AdministratorBT.setText(_translate("MainWindow", "Administrator"))
 
