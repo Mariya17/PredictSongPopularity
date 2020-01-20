@@ -18,7 +18,7 @@
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="userBT">
+   <widget class="QPushButton" name="btn_user">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -51,7 +51,7 @@ padding: 6px;
      <string>User</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="AdministratorBT">
+   <widget class="QPushButton" name="btn_administrator">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -116,5 +116,6 @@ padding: 6px;
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <resources/>
  <connections/>
 </ui>

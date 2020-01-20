@@ -8,16 +8,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from AdministratorWindow import Ui_AdministratorWindow
+
 
 class Ui_MainWindow(object):
-    def openAdminWindow(self):
-        self.window = QtWidgets.QDialog()
-        self.ui = Ui_AdministratorWindow()
-        self.ui.seupUi(self.window)
-        MainWindow.hide()
-        self.window.show()
-
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(700, 609)
@@ -25,16 +18,16 @@ class Ui_MainWindow(object):
 "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.userBT = QtWidgets.QPushButton(self.centralwidget)
-        self.userBT.setGeometry(QtCore.QRect(60, 50, 186, 41))
+        self.btn_user = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_user.setGeometry(QtCore.QRect(60, 50, 186, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
         font.setItalic(False)
         font.setWeight(75)
         font.setKerning(True)
-        self.userBT.setFont(font)
-        self.userBT.setStyleSheet("background-color: rgb(190, 178, 255);\n"
+        self.btn_user.setFont(font)
+        self.btn_user.setStyleSheet("background-color: rgb(190, 178, 255);\n"
 "border-style: outset;\n"
 "border-width: 2px;\n"
 "border-radius: 10px;\n"
@@ -43,17 +36,17 @@ class Ui_MainWindow(object):
 "min-width: 10em;\n"
 "padding: 6px;\n"
 "")
-        self.userBT.setObjectName("userBT")
-        self.AdministratorBT = QtWidgets.QPushButton(self.centralwidget)
-        self.AdministratorBT.setGeometry(QtCore.QRect(410, 50, 186, 41))
+        self.btn_user.setObjectName("btn_user")
+        self.btn_administrator = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_administrator.setGeometry(QtCore.QRect(410, 50, 186, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
         font.setItalic(False)
         font.setWeight(75)
         font.setKerning(True)
-        self.AdministratorBT.setFont(font)
-        self.AdministratorBT.setStyleSheet("background-color: rgb(190, 178, 255);\n"
+        self.btn_administrator.setFont(font)
+        self.btn_administrator.setStyleSheet("background-color: rgb(190, 178, 255);\n"
 "border-style: outset;\n"
 "border-width: 2px;\n"
 "border-radius: 10px;\n"
@@ -62,10 +55,7 @@ class Ui_MainWindow(object):
 "min-width: 10em;\n"
 "padding: 6px;\n"
 "")
-        self.AdministratorBT.setObjectName("AdministratorBT")
-
-        self.AdministratorBT.clicked.connect(self.openAdminWindow())
-
+        self.btn_administrator.setObjectName("btn_administrator")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(0, 180, 701, 391))
         self.label.setText("")
@@ -87,14 +77,5 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.userBT.setText(_translate("MainWindow", "User"))
-        self.AdministratorBT.setText(_translate("MainWindow", "Administrator"))
-
-if __name__ == '__main__':
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        self.btn_user.setText(_translate("MainWindow", "User"))
+        self.btn_administrator.setText(_translate("MainWindow", "Administrator"))

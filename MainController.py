@@ -39,10 +39,11 @@ if __name__ == "__main__":
     administrator = AdministratorWindow()
     learning = LearningWindow()
 
-    main.userBT.clicked.connect(lambda: changeWindow(main, user))
-    user.back.clicked.connect(lambda: changeWindow(user, main))
-    main.AdministratorBT.clicked.connect(lambda: changeWindow(main, administrator))
-    administrator.learning.clicked.connect(lambda: changeWindow(administrator, learning))
+    main.btn_user.clicked.connect(lambda: changeWindow(main, user))
+    user.btn_back.clicked.connect(lambda: changeWindow(user, main))
+    main.btn_administrator.clicked.connect(lambda: changeWindow(main, administrator))
+    administrator.btn_learning.clicked.connect(lambda: changeWindow(administrator, learning))
+    administrator.btn_back.clicked.connect(lambda: changeWindow(administrator, main))
 
     main.show()
     sys.exit(app.exec_())

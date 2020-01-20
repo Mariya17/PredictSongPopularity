@@ -3,8 +3,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_LearningWindow(object):
-
-
     def setupUi(self, LearningWindow):
         LearningWindow.setObjectName("LearningWindow")
         LearningWindow.setEnabled(True)
@@ -29,6 +27,10 @@ class Ui_LearningWindow(object):
         self.learnitg_label.setObjectName("learnitg_label")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setGeometry(QtCore.QRect(150, 130, 351, 23))
+        font = QtGui.QFont()
+        font.setFamily("Arial Rounded MT Bold")
+        font.setPointSize(24)
+        self.progressBar.setFont(font)
         self.progressBar.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
@@ -44,8 +46,6 @@ class Ui_LearningWindow(object):
 
     def retranslateUi(self, LearningWindow):
         _translate = QtCore.QCoreApplication.translate
-
         LearningWindow.setWindowTitle('Administrator Main Window')
         LearningWindow.setWindowIcon(QtGui.QIcon('icon.png'))
-
         self.learnitg_label.setText(_translate("LearningWindow", "Learning"))
