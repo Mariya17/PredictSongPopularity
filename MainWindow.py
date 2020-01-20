@@ -1,23 +1,8 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'MainWindow.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
-from AdministratorGui import Ui_AdministratorWindow
+from PyQt5.QtWidgets import QWidget, QPushButton
 
 class Ui_MainWindow(object):
-    def openAdminWindow(self):
-        self.window = QtWidgets.QDialog()
-        self.ui = Ui_AdministratorWindow()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.window.show()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -28,6 +13,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.userBT = QPushButton(self.centralwidget)
         self.userBT.setGeometry(QtCore.QRect(60, 50, 186, 41))
+        self.userBT.setToolTip('Click if you want to predict a song popularity')
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
@@ -45,6 +31,7 @@ class Ui_MainWindow(object):
 "padding: 6px;\n"
 "")
         self.userBT.setObjectName("userBT")
+
         self.AdministratorBT = QPushButton(self.centralwidget)
         self.AdministratorBT.setToolTip('Click if you want to build new prediction model')
         self.AdministratorBT.setGeometry(QtCore.QRect(410, 50, 186, 41))
@@ -65,8 +52,6 @@ class Ui_MainWindow(object):
 "padding: 6px;\n"
 "")
         self.AdministratorBT.setObjectName("AdministratorBT")
-        # Connect the button to the function
-        self.AdministratorBT.clicked.connect(self.openAdminWindow)
 
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(0, 180, 701, 391))
@@ -94,12 +79,3 @@ class Ui_MainWindow(object):
 
         self.userBT.setText(_translate("MainWindow", "User"))
         self.AdministratorBT.setText(_translate("MainWindow", "Administrator"))
-
-if __name__ == '__main__':
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

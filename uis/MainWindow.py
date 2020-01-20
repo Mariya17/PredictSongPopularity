@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from AdministratorGui import Ui_AdministratorWindow
+from AdministratorWindow import Ui_AdministratorWindow
 
 class Ui_MainWindow(object):
     def openAdminWindow(self):
