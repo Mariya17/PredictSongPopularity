@@ -91,6 +91,8 @@ LARGE_FONT= ("Verdana", 12)
 
 class LoginGUI(Frame):
     def __init__(self, master): #master is root
+        frameTop = Frame(master, bg="Blue")
+        frameTop.pack(side=TOP, fill=BOTH, expand=True)
         frameBg = Frame(master)
         frameBg.pack(fill=BOTH, expand=True)
 
@@ -105,28 +107,29 @@ class LoginGUI(Frame):
 
         self.labelTextID = StringVar()
         self.labelTextID.set("ID")
-        self.labelDirID = Label(self.background_label, textvariable=self.labelTextID)
+        self.labelDirID = Label(frameTop, textvariable=self.labelTextID)
         self.labelDirID.grid(column=0, row=0, padx=5, sticky=E)
 
         self.entryTextID = StringVar()
         self.entryTextID.set("Insert your ID")
-        self.entryID = Entry(self.background_label, textvariable=self.entryTextID, width=20)
+        self.entryID = Entry(frameTop, textvariable=self.entryTextID, width=20)
         self.entryID.grid(column=1, row=0)
 
         self.labelTextPassword = StringVar()
         self.labelTextPassword.set("Password")
-        self.labelPassword = Label(self.background_label, textvariable=self.labelTextPassword)
+        self.labelPassword = Label(frameTop, textvariable=self.labelTextPassword)
         self.labelPassword.grid(column=0, row=1, padx=5)
 
         self.entryTextPassword = StringVar()
         self.entryTextPassword.set("Insert your Password")
-        self.entryPassword = Entry(self.background_label, textvariable=self.entryTextPassword, width=20)
+        self.entryPassword = Entry(frameTop, textvariable=self.entryTextPassword, width=20)
         # self.entryName.pack(side=LEFT,anchor=W, expand=YES)
         self.entryPassword.grid(column=1, row=1, sticky=E)
 
         self.loginButton = Button(self.background_label, text="Login", command=self.loginFunc)
-        self.loginButton.grid(column=1, row=2)
-        #
+        # self.loginButton.grid(column=1, row=2)
+        self.loginButton.pack(side=BOTTOM)
+
         # self.quitButton = Button(background_label, text="Quit", command=frame.quit)
         # self.quitButton.grid(row=2, column=1)
         # answer = tk.messagebox.askquestion("Question1:", "Do you like dogs?")

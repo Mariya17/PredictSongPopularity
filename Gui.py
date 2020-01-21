@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import *
 import tkinter.messagebox
 from PIL import Image, ImageTk
+from PageThree import PageThree as PageThree
+from MainGUI import MainGUI as MainGUI
+
 
 LARGE_FONT = ("Verdana", 18)
 
@@ -33,7 +36,8 @@ class GuiController(tk.Tk):
 
         for F in (MainGUI,
                   PageOne,
-                  PageTwo):
+                  PageTwo,
+                  PageThree):
             frame = F(container, self)
 
             self.frames[F] = frame
@@ -56,31 +60,6 @@ class GuiController(tk.Tk):
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background_label.configure(image=self.background_image)
 
-class MainGUI(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-
-        topFrame = tk.Frame(self, height=0+15)
-        topFrame.grid(column=0, row=0)
-
-        leftFrame = tk.Frame(self, width=0+250)
-        leftFrame.grid(column=0, row=0)
-
-        centerFrame = tk.Frame(self, height=45)
-        centerFrame.grid(column=0, row=4)
-
-        label = tk.Label(self, text="Main", font=LARGE_FONT)
-        label.grid(column=1, row=1)
-
-        button = tk.Button(self, text="User",
-                           command=lambda: controller.show_frame(PageOne))
-        button.grid(column=1, row=2)
-
-        button2 = tk.Button(self, text="Administrator",
-                            command=lambda: controller.show_frame(PageTwo))
-        button2.grid(column=1, row=3)
 
 
 class PageOne(tk.Frame):
