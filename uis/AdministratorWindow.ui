@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdministratorWindow</class>
+ <widget class="QDialog" name="AdministratorWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>700</width>
+    <height>609</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(76, 153, 229);
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>701</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <widget class="QPushButton" name="btn_loadDataBase">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>186</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(190, 178, 255);
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: bold 14px;
+min-width: 10em;
+padding: 6px;
+</string>
+    </property>
+    <property name="text">
+     <string>Load Data Base</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_updateDataBase">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>110</y>
+      <width>186</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(190, 178, 255);
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: bold 14px;
+min-width: 10em;
+padding: 6px;
+</string>
+    </property>
+    <property name="text">
+     <string>Update Data Base</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_testing">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>110</y>
+      <width>186</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(190, 178, 255);
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: bold 14px;
+min-width: 10em;
+padding: 6px;
+</string>
+    </property>
+    <property name="text">
+     <string>Testing</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_learning">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>50</y>
+      <width>186</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(190, 178, 255);
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: bold 14px;
+min-width: 10em;
+padding: 6px;
+</string>
+    </property>
+    <property name="text">
+     <string>Learning</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>200</y>
+      <width>701</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../microphoneBackground.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_back">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>530</y>
+      <width>118</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777213</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(75, 151, 225);
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: bold 14px;
+min-width: 6em;
+padding: 6px;
+</string>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>700</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>3</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

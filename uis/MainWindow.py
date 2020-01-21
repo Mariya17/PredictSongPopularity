@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'MainWindow.ui'
+#
+# Created by: PyQt5 UI code generator 5.13.0
+#
+# WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -51,7 +59,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(0, 180, 701, 391))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("microphoneBackground.png"))
+        self.label.setPixmap(QtGui.QPixmap("../microphoneBackground.png"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -68,7 +76,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle('Main Window')
-        MainWindow.setWindowIcon(QtGui.QIcon('icon.png'))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.btn_user.setText(_translate("MainWindow", "User"))
         self.btn_administrator.setText(_translate("MainWindow", "Administrator"))

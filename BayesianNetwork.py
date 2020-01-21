@@ -29,12 +29,9 @@ def BN(DAG, db_file, results_file):
     predict_data = predict_data.copy()
     predict_data.drop('song_popularity', axis=1, inplace=True)
     y_pred = model.predict(predict_data)
-    print(y_pred)
+    #print(y_pred)
 
     with open(results_file, 'w', newline='') as file:
         y_pred.to_csv(file)
-        # writer = csv.writer(file)
-        # predict_data['song_popularity_res'] = y_pred
-        # writer.writerows(predict_data)
 
 
