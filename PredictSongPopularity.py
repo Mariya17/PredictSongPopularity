@@ -26,6 +26,8 @@ class PredictSongPopularity:
 
         self.db_file_name = 'C:\galitProject\PredictSongPopularity\song_data.csv'
         self.predicted_results_file_name = 'C:\galitProject\PredictSongPopularity\predicted_results.csv'
+        self.predicted_single_song_result_file_name = 'C:\galitProject\PredictSongPopularity\predicted_single_song_result.csv'
+        self.DAG_File = 'C:/galitProject/PredictSongPopularity/DAG_File.csv'
 
         self.processed_data_file_name = 'C:\galitProject\PredictSongPopularity\db_after_preprosessing.csv'
         self.DAG = []
@@ -48,6 +50,8 @@ class PredictSongPopularity:
         #self.DAG = DAG_MeanShift
 
         self.DAG = K2Algorithm.k2()
+        self.convertDagToFile()
+        DagTest = self.convertFileToDAG()
 
         BayesianNetwork.BN(self.DAG, self.processed_data_file_name, self.predicted_results_file_name)
 
@@ -56,10 +60,39 @@ class PredictSongPopularity:
         errorRate = Measurements.errorRate(self.processed_data_file_name, self.predicted_results_file_name)
         print("Error Rate is: {0}%".format(errorRate))
 
+    def convertDagToFile(self):
+        parent = []
+        child = []
+
+        for tuple_of_two in self.DAG:
+            parent.append(tuple_of_two[0])
+            child.append(tuple_of_two[1])
+
+        dictOfColumns = {'Parent': parent, 'Child': child}
+        df = pd.DataFrame(dictOfColumns, columns=['Parent', 'Child'])
+        fileToExe = df.to_csv(r'C:/galitProject/PredictSongPopularity/DAG_File.csv', index=None, header=True)
+
+    def convertFileToDAG(self):
+        data = pd.read_csv(self.DAG_File, header=None)
+
+        rowsCsv, colCsv = data.shape
+        dag = []
+        for i in range(1, rowsCsv):
+          dag.append((data[0][i], data[1][i]))
+
+        return dag
+
+    def predictSingle(self):
+        data_base = DataPreprocessing.DataPeprocessing(self.db_file_name, self.processed_data_file_name)
+        data_base.data_preprosessing('Equal Steps')
+        self.DAG = self.convertFileToDAG()
+        res = BayesianNetwork.BNForOneSong(self.DAG, self.processed_data_file_name, self.predicted_results_file_name,
+                                     "C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
+        print(res)
 
 def main():
     predict = PredictSongPopularity()
-    predict.predict()
+    predict.predictSingle()
 
 
 if __name__ == '__main__':
