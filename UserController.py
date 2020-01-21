@@ -13,6 +13,6 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
-                                                  "All Files (*);;Python Files (*.csv)", options=options)
+                                                  "All Files (*);;Song Files (*.csv)", options=options)
         if fileName:
             print(fileName)
