@@ -5,7 +5,7 @@ import sys
 from AdministratorController import AdministratorController
 from UserController import UserController
 from MainWindow import Ui_MainWindow
-from LearningController import LearningController
+
 
 class MainController(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -21,13 +21,13 @@ if __name__ == "__main__":
     main = MainController()
     user = UserController()
     administrator = AdministratorController()
-    learning = LearningController()
+
 
     main.btn_user.clicked.connect(lambda: changeWindow(main, user))
     user.btn_back.clicked.connect(lambda: changeWindow(user, main))
     main.btn_administrator.clicked.connect(lambda: changeWindow(main, administrator))
 
-    administrator.btn_learning.clicked.connect(lambda: changeWindow(administrator, learning))
+
     administrator.btn_back.clicked.connect(lambda: changeWindow(administrator, main))
 
 

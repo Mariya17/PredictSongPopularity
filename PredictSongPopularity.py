@@ -24,13 +24,14 @@ class PredictSongPopularity:
                              'song_popularity']
 
 
-        self.db_file_name = 'C:\galitProject\PredictSongPopularity\song_data.csv'
-        self.predicted_results_file_name = 'C:\galitProject\PredictSongPopularity\predicted_results.csv'
+        self.db_file_name = 'song_data.csv'
+        self.predicted_results_file_name = 'predicted_results.csv'
 
-        self.processed_data_file_name = 'C:\galitProject\PredictSongPopularity\db_after_preprosessing.csv'
+        self.processed_data_file_name = 'db_after_preprosessing.csv'
         self.DAG = []
 
     def predict(self):
+        print('Started learning\n')
         data_base = DataPreprocessing.DataPeprocessing(self.db_file_name, self.processed_data_file_name)
         """
         1. 'MeanShirf' - default
