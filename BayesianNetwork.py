@@ -35,3 +35,20 @@ def BN(DAG, db_file, results_file):
         y_pred.to_csv(file)
 
 
+def BNForOneSong(DAG, db_file, results_file, songFile):
+    data = take_only_relevant_features(DAG, db_file)
+    dataToPredictRF = take_only_relevant_features(DAG, songFile)
+    dataToPredict = pd.read_csv(songFile)
+
+    model = BayesianModel(DAG)
+
+    model.fit(data, BayesianEstimator)
+
+    dataToPredictRF = dataToPredictRF.copy()
+    y_pred = model.predict(dataToPredictRF)
+    # print(y_pred)
+
+    with open(results_file, 'w', newline='') as file:
+        y_pred.to_csv(file)
+
+    return y_pred['song_popularity'][0]
