@@ -46,6 +46,6 @@ class Ui_LearningWindow(object):
 
     def retranslateUi(self, LearningWindow):
         _translate = QtCore.QCoreApplication.translate
-        LearningWindow.setWindowTitle('Administrator Main Window')
+        LearningWindow.setWindowTitle('Pending Window')
         LearningWindow.setWindowIcon(QtGui.QIcon('icon.png'))
         self.learnitg_label.setText(_translate("LearningWindow", "Learning"))
