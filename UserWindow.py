@@ -9,10 +9,10 @@ class Ui_UserWindow(object):
         UserWindow.setStyleSheet("background-color: rgb(76, 153, 229);\n"
 "")
         self.centralwidget = QtWidgets.QWidget(UserWindow)
-        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 701, 621))
+        self.centralwidget.setGeometry(QtCore.QRect(-10, 0, 701, 621))
         self.centralwidget.setObjectName("centralwidget")
         self.btn_loadASong = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_loadASong.setGeometry(QtCore.QRect(50, 80, 186, 41))
+        self.btn_loadASong.setGeometry(QtCore.QRect(570, 60, 101, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
@@ -26,12 +26,12 @@ class Ui_UserWindow(object):
 "border-radius: 10px;\n"
 "border-color: beige;\n"
 "font: bold 14px;\n"
-"min-width: 10em;\n"
+"min-width: 5em;\n"
 "padding: 6px;\n"
 "")
         self.btn_loadASong.setObjectName("btn_loadASong")
         self.btn_predict = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_predict.setGeometry(QtCore.QRect(410, 80, 186, 41))
+        self.btn_predict.setGeometry(QtCore.QRect(490, 130, 186, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
@@ -56,7 +56,7 @@ class Ui_UserWindow(object):
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.btn_back = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_back.setGeometry(QtCore.QRect(568, 530, 118, 41))
+        self.btn_back.setGeometry(QtCore.QRect(540, 530, 118, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
@@ -74,6 +74,20 @@ class Ui_UserWindow(object):
 "padding: 6px;\n"
 "")
         self.btn_back.setObjectName("btn_back")
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.plainTextEdit.setGeometry(QtCore.QRect(170, 70, 391, 31))
+        self.plainTextEdit.setAutoFillBackground(False)
+        self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(40, 80, 121, 21))
+        font = QtGui.QFont()
+        font.setFamily("MS Reference Sans Serif")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
         self.menubar = QtWidgets.QMenuBar(UserWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 700, 21))
         self.menubar.setObjectName("menubar")
@@ -86,8 +100,10 @@ class Ui_UserWindow(object):
 
     def retranslateUi(self, UserWindow):
         _translate = QtCore.QCoreApplication.translate
+
         UserWindow.setWindowTitle('User Main Window')
         UserWindow.setWindowIcon(QtGui.QIcon('icon.png'))
-        self.btn_loadASong.setText(_translate("UserWindow", "Load A Song"))
+        self.btn_loadASong.setText(_translate("UserWindow", "Browse"))
         self.btn_predict.setText(_translate("UserWindow", "Predict"))
         self.btn_back.setText(_translate("UserWindow", "Back"))
+        self.label_2.setText(_translate("UserWindow", "Load A Song"))
