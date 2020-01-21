@@ -6,8 +6,7 @@ class Ui_UserWindow(object):
     def setupUi(self, UserWindow):
         UserWindow.setObjectName("UserWindow")
         UserWindow.resize(700, 609)
-        UserWindow.setStyleSheet("background-color: rgb(76, 153, 229);\n"
-"")
+        UserWindow.setStyleSheet("background-color: rgb(76, 153, 229);\n""")
         self.centralwidget = QtWidgets.QWidget(UserWindow)
         self.centralwidget.setGeometry(QtCore.QRect(-10, 0, 701, 621))
         self.centralwidget.setObjectName("centralwidget")
