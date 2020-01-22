@@ -45,7 +45,7 @@ def errorRate(exceptedPath, testPredRes):
 
     return errorRate
 
-def createGraph(yValues, xVlaues):
+def createGraph():
     x, y = convertFileTofraph("C:\galitProject\PredictSongPopularity\graph.csv")
     for i in y:
         i = 100 - int(i)
@@ -57,9 +57,9 @@ def createGraph(yValues, xVlaues):
              markersize=4)
 
 
-    plt.title('A tale of 2 subplots')
-    plt.xlabel('time (s)')
-    plt.ylabel('Undamped')
+    plt.title('UnUniform')
+    plt.xlabel('div')
+    plt.ylabel('success')
     plt.show()
 
 def convertFileTofraph(graph_file):
