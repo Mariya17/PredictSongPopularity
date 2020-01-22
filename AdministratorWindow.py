@@ -220,7 +220,6 @@ class Ui_AdministratorWindow(object):
         self.pt_k2path.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.pt_k2path.setObjectName("pt_k2path")
 
-
         self.menubar = QtWidgets.QMenuBar(AdministratorWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 700, 21))
         self.menubar.setObjectName("menubar")
