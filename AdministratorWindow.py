@@ -183,6 +183,7 @@ class Ui_AdministratorWindow(object):
         self.lb_completed.setObjectName("lb_completed")
         self.lb_completed.hide()
 
+
         self.btn_loadK2Input = QtWidgets.QPushButton(self.centralwidget)
         self.btn_loadK2Input.setGeometry(QtCore.QRect(540, 90, 101, 41))
         font = QtGui.QFont()
