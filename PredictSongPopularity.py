@@ -34,7 +34,7 @@ class PredictSongPopularity:
 
     ####################### Separated Predicting #######################
     #     1.
-    def Preprocessing(self):
+    def preprocessing(self):
         data_base = DataPreprocessing.DataPeprocessing(self.db_file_name, self.processed_data_file_name)
         """
         1. 'MeanShirf' - default
@@ -43,23 +43,22 @@ class PredictSongPopularity:
         """
         data_base.data_preprosessing('Equal Steps')
     #     2.
-    def PerformK2(self):
+    def performK2(self):
         K2Algorithm = k2.K2(self.ordered_list, self.processed_data_file_name)
         self.DAG = K2Algorithm.k2()
         self.convertDagToFile()
-    #    3.def convertFileToDAG(self)
-    #    4.
+    #    3.
     def bayesianLearning(self):
         self.BN.BNLearning(self.DAG, self.processed_data_file_name)
-    #    5.
+    #    4.
     def bayesianTesting(self):
         self.BN.BNTesting(self.predicted_results_file_name)
-    #    6.
+    #    5.
     def mseMeasure(self):
         mse = Measurements.mse(self.processed_data_file_name, self.predicted_results_file_name)
         print("MSE is: {0}%".format(mse))
 
-    #    7.
+    #    6.
     def errorInPresents(self):
         errorRate = Measurements.errorRate(self.processed_data_file_name, self.predicted_results_file_name)
         print("Error Rate is: {0}%".format(errorRate))

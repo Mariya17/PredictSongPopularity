@@ -47,7 +47,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
                                               "Please load a K2 Input befor learning.")
             return
         self.lb_learnitg.show()
-        self.progressBar.setValue(progressValue)
+        self.progressBar.setValue(0)
         self.progressBar.show()
         self.btn_learning.setDisabled(True)
         self.btn_back.setDisabled(True)
@@ -60,6 +60,13 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
                                                 "Start Learning?",
                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if choice == QtWidgets.QMessageBox.Yes:
+            self.predictor.preprocessing()
+            self.progressBar.setValue(10)
+            self.predictor.performK2()
+            self.progressBar.setValue(25)
+            self.predictor.bayesianLearning()
+            self.progressBar.setValue(100)
+
             # self.predictor.predict()
             self.learningFlaf = True
             self.progressBar.hide()
@@ -83,7 +90,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.lb_completed.hide()
 
         self.lb_testing.show()
-        self.progressBar.setValue(progressValue)
+        self.progressBar.setValue(0)
         self.progressBar.show()
 
         self.btn_learning.setDisabled(True)
@@ -99,6 +106,13 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         if choice == QtWidgets.QMessageBox.Yes:
 
             ############## Testing #######################
+            self.progressBar.setValue(3)
+            self.predictor.bayesianTesting()
+            self.progressBar.setValue(90)
+            self.predictor.mseMeasure()
+            self.progressBar.setValue(95)
+            self.predictor.errorInPresents()
+            self.progressBar.setValue(100)
             # self.predictor.predict()
             self.progressBar.hide()
             self.lb_completed.show()
