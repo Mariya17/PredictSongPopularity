@@ -2,6 +2,7 @@ from UserWindow import Ui_UserWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 import PredictSongPopularity
+import os
 
 class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
     def __init__(self, parent=None):
@@ -18,8 +19,14 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         self.perdictSongFileName, _ = QFileDialog.getOpenFileName(self.clearMask(), "QFileDialog.getOpenFileName()", "",
-                                                  "All Files (*);;Song Files (*.csv)", options=options)
-        if self.perdictSongFileName != "empty":
+                                                  "Song Files (*.csv);;All Files (*)", options=options)
+        if not self.perdictSongFileName:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage("No file selected. Please browse a song file")
+            error_dialog.exec()
+            self.plainTextEdit.clear()
+            self.plainTextEdit.setPlainText("Please browse a song file ")
+        elif self.perdictSongFileName != "empty":
             listOfPerdictSongFileName = self.perdictSongFileName.split(".")
             endOfselfpredictSongFileName = listOfPerdictSongFileName[len(listOfPerdictSongFileName) - 1]
             if endOfselfpredictSongFileName != "csv":
@@ -39,9 +46,14 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
             error_dialog.showMessage("Please load a song")
             error_dialog.exec()
         else:
-            print("predicting")
-            predict = PredictSongPopularity.PredictSongPopularity()
-            predict.predictSingle(self.perdictSongFileName)
+            if os.path.isfile('./DAG_File.csv'):
+                print("predicting")
+                predict = PredictSongPopularity.PredictSongPopularity()
+                predict.predictSingle(self.perdictSongFileName)
+            else:
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage("There is no predicting model. Please contact your administrator")
+                error_dialog.exec()
 
 
 
