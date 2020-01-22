@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.metrics import mean_squared_error
-
+import matplotlib.pyplot as plt
+import numpy as np
 
 def mse(exceptedPath, testPredRes):
     dataDB = pd.read_csv(exceptedPath)
@@ -43,3 +44,18 @@ def errorRate(exceptedPath, testPredRes):
     errorRate *= 100
 
     return errorRate
+
+def createGraph(yValues, xVlaues):
+    plt.plot(xVlaues, yValues,
+             color='green',
+             marker='o',
+             linestyle='dashed',
+             linewidth=2,
+             markersize=4)
+
+
+    plt.title('A tale of 2 subplots')
+    plt.xlabel('time (s)')
+    plt.ylabel('Undamped')
+    plt.show()
+

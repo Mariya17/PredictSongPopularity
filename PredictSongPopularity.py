@@ -8,20 +8,20 @@ import Measurements
 
 class PredictSongPopularity:
     def __init__(self):
-        self.ordered_list = [
-                             'tempo',
-				        	 'audio_mode',
-				        	 'song_duration_ms',
-				        	 'key',
-				        	 'time_signature',
-				        	 'acousticness',
-				        	 'instrumentalness',
-				        	 'liveness','loudness',
-				        	 'speechiness',
-				        	 'audio_valence',
-				        	 'danceability',
-				        	 'energy',
-                             'song_popularity']
+        # self.ordered_list = [
+        #                      'tempo',
+		# 		        	 'audio_mode',
+		# 		        	 'song_duration_ms',
+		# 		        	 'key',
+		# 		        	 'time_signature',
+		# 		        	 'acousticness',
+		# 		        	 'instrumentalness',
+		# 		        	 'liveness','loudness',
+		# 		        	 'speechiness',
+		# 		        	 'audio_valence',
+		# 		        	 'danceability',
+		# 		        	 'energy',
+        #                      'song_popularity']
 
 
         self.db_file_name = 'C:/galitProject/PredictSongPopularity/song_data.csv'
@@ -133,17 +133,17 @@ class PredictSongPopularity:
         print(res)
 
 
+# def main():
+#     predict = PredictSongPopularity()
+#     predict.predict()
+
 def main():
-    predict = PredictSongPopularity()
-    predict.predict()
+    Measurements.createGraph([100-45.68, 100-43.6, 100-37.2], [6, 7, 8])
 
-
-if __name__ == '__main__':
-    main()
 # def main():
 #     predict = PredictSongPopularity()
 #     predict.predictSingle("C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
 #
 #
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
