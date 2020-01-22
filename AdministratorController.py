@@ -14,7 +14,9 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.newFileFlag = False
         self.predictor = PredictSongPopularity()
 
+        self.k2InputFileName = "empty"
         self.btn_loadDataBase.clicked.connect(self.loadDataBase)
+        self.btn_loadK2Input.clicked.connect(self.browseK2Input)
         self.btn_learning.clicked.connect(self.learning)
         self.btn_testing.clicked.connect(self.testing)
 
@@ -39,6 +41,10 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         if not self.newFileFlag:
             QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
                                               "Please load a Data Base for learning.")
+            return
+        if self.k2InputFileName == "empty":
+            QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
+                                              "Please load a K2 Input befor learning.")
             return
         self.lb_learnitg.show()
         self.progressBar.setValue(progressValue)
@@ -104,6 +110,27 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.btn_loadDataBase.setDisabled(False)
         self.btn_learning.setDisabled(False)
         self.btn_testing.setDisabled(False)
+
+    def browseK2Input(self):
+        _translate = QtCore.QCoreApplication.translate
+
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        self.k2InputFileName, _ = QFileDialog.getOpenFileName(self.clearMask(), "QFileDialog.getOpenFileName()", "",
+                                                                  "All Files (*);;DB Files (*.csv)", options=options)
+        if self.k2InputFileName != "empty":
+            listOfK2InputFileName = self.k2InputFileName.split(".")
+            endOfK2InputFileName = listOfK2InputFileName[len(listOfK2InputFileName) - 1]
+            if endOfK2InputFileName != "csv":
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage("Error: you browsed a '{0}' format file. Please load a 'csv' format file"
+                                         .format(endOfK2InputFileName))
+                error_dialog.exec()
+                self.pt_k2path.clear()
+                self.pt_k2path.setPlainText("Please browse again a K2 Input")
+            else:
+                self.pt_k2path.clear()
+                self.pt_k2path.setPlainText(self.k2InputFileName)
 
 
 
