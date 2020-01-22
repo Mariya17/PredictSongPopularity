@@ -1,7 +1,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_AdministratorWindow(object):
     def setupUi(self, AdministratorWindow):
         AdministratorWindow.setObjectName("AdministratorWindow")
@@ -109,6 +108,79 @@ class Ui_AdministratorWindow(object):
         self.pt_dbpath.setFont(font)
         self.pt_dbpath.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.pt_dbpath.setObjectName("pt_dbpath")
+        self.lb_learnitg = QtWidgets.QLabel(self.centralwidget)
+        self.lb_learnitg.setGeometry(QtCore.QRect(230, 220, 211, 51))
+        font = QtGui.QFont()
+        font.setFamily("Bauhaus 93")
+        font.setPointSize(36)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lb_learnitg.setFont(font)
+        self.lb_learnitg.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.lb_learnitg.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.lb_learnitg.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: transparent;")
+        self.lb_learnitg.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.lb_learnitg.setLineWidth(0)
+        self.lb_learnitg.setObjectName("lb_learnitg")
+        self.lb_learnitg.hide()
+
+        self.tl_outputBox = QtWidgets.QLabel(self.centralwidget)
+        self.tl_outputBox.setGeometry(QtCore.QRect(40, 340, 451, 201))
+        self.tl_outputBox.setStyleSheet("background-color: transparent;")
+        self.tl_outputBox.setObjectName("tl_outputBox")
+
+        self.lb_testing = QtWidgets.QLabel(self.centralwidget)
+        self.lb_testing.setGeometry(QtCore.QRect(230, 220, 211, 51))
+        font = QtGui.QFont()
+        font.setFamily("Bauhaus 93")
+        font.setPointSize(36)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lb_testing.setFont(font)
+        self.lb_testing.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.lb_testing.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.lb_testing.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: transparent;")
+        self.lb_testing.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.lb_testing.setLineWidth(0)
+        self.lb_testing.setObjectName("lb_testing")
+        self.lb_testing.hide()
+
+        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar.setGeometry(QtCore.QRect(110, 290, 351, 23))
+        font = QtGui.QFont()
+        font.setFamily("Arial Rounded MT Bold")
+        font.setPointSize(24)
+        self.progressBar.setFont(font)
+        self.progressBar.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.progressBar.setStyleSheet("color: rgb(255, 255, 255);")
+        self.progressBar.setProperty("value", 24)
+        self.progressBar.setObjectName("progressBar")
+        self.progressBar.hide()
+		
+        self.lb_completed = QtWidgets.QLabel(self.centralwidget)
+        self.lb_completed.setEnabled(False)
+        self.lb_completed.setGeometry(QtCore.QRect(200, 320, 281, 51))
+        font = QtGui.QFont()
+        font.setFamily("Bauhaus 93")
+        font.setPointSize(36)
+        font.setBold(True)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(False)
+        self.lb_completed.setFont(font)
+        self.lb_completed.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.lb_completed.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.lb_completed.setAutoFillBackground(False)
+        self.lb_completed.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: transparent;")
+        self.lb_completed.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.lb_completed.setLineWidth(0)
+        self.lb_completed.setObjectName("lb_completed")
+        self.lb_completed.hide()
+
         self.menubar = QtWidgets.QMenuBar(AdministratorWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 700, 21))
         self.menubar.setObjectName("menubar")
@@ -119,6 +191,7 @@ class Ui_AdministratorWindow(object):
         self.retranslateUi(AdministratorWindow)
         QtCore.QMetaObject.connectSlotsByName(AdministratorWindow)
 
+
     def retranslateUi(self, AdministratorWindow):
         _translate = QtCore.QCoreApplication.translate
         AdministratorWindow.setWindowTitle('Administrator Main Window')
@@ -128,3 +201,6 @@ class Ui_AdministratorWindow(object):
         self.btn_learning.setText(_translate("AdministratorWindow", "Learning"))
         self.btn_back.setText(_translate("AdministratorWindow", "Back"))
         self.label_2.setText(_translate("AdministratorWindow", "Load Data Base"))
+        self.lb_learnitg.setText(_translate("AdministratorWindow", "Learning"))
+        self.lb_testing.setText(_translate("AdministratorWindow", "Testing"))
+        self.lb_completed.setText(_translate("AdministratorWindow", "Completed"))
