@@ -1,6 +1,7 @@
 from UserWindow import Ui_UserWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
+import PredictSongPopularity
 
 class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
     def __init__(self, parent=None):
@@ -39,6 +40,8 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
             error_dialog.exec()
         else:
             print("predicting")
+            predict = PredictSongPopularity.PredictSongPopularity()
+            predict.predictSingle(self.perdictSongFileName)
 
 
 

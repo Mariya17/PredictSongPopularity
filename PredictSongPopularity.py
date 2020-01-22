@@ -82,18 +82,18 @@ class PredictSongPopularity:
 
         return dag
 
-    def predictSingle(self):
+    def predictSingle(self, songFile):
         data_base = DataPreprocessing.DataPeprocessing(self.db_file_name, self.processed_data_file_name)
         data_base.data_preprosessing('Equal Steps')
         self.DAG = self.convertFileToDAG()
         res = BayesianNetwork.BNForOneSong(self.DAG, self.processed_data_file_name, self.predicted_results_file_name,
-                                     "C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
+                                     songFile)
         print(res)
 
-def main():
-    predict = PredictSongPopularity()
-    predict.predictSingle()
-
-
-if __name__ == '__main__':
-    main()
+# def main():
+#     predict = PredictSongPopularity()
+#     predict.predictSingle("C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
+#
+#
+# if __name__ == '__main__':
+#     main()
