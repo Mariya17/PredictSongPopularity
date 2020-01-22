@@ -46,7 +46,10 @@ def errorRate(exceptedPath, testPredRes):
     return errorRate
 
 def createGraph(yValues, xVlaues):
-    plt.plot(xVlaues, yValues,
+    x, y = convertFileTofraph("C:\galitProject\PredictSongPopularity\graph.csv")
+    for i in y:
+        i = 100 - int(i)
+    plt.plot(x, y,
              color='green',
              marker='o',
              linestyle='dashed',
@@ -59,3 +62,11 @@ def createGraph(yValues, xVlaues):
     plt.ylabel('Undamped')
     plt.show()
 
+def convertFileTofraph(graph_file):
+    data = pd.read_csv(graph_file)
+
+    rowsCsv, colCsv = data.shape
+    x = [data['x'][i] for i in range(0, rowsCsv)]
+    y = [data['y'][i] for i in range(0, rowsCsv)]
+
+    return x, y

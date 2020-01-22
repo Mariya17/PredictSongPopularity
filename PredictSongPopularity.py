@@ -137,8 +137,8 @@ class PredictSongPopularity:
 #     predict = PredictSongPopularity()
 #     predict.predict()
 
-def main():
-    Measurements.createGraph([100-45.68, 100-43.6, 100-37.2], [6, 7, 8])
+# def main():
+#     Measurements.createGraph([100-45.68, 100-43.6, 100-37.2], [6, 7, 8])
 
 # def main():
 #     predict = PredictSongPopularity()
