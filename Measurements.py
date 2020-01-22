@@ -1,16 +1,15 @@
 import pandas as pd
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-import numpy as np
 
 def mse(exceptedPath, testPredRes):
     dataDB = pd.read_csv(exceptedPath)
     # print ('PATH_OF_DB read successfully')
     dataTstsRes = pd.read_csv(testPredRes)
     # print ('PATH_OF_TESTS_RES read successfully')
-
+    traning_part = int(0.8 * len(dataDB))
     # Given values
-    Y_true = [dataDB['song_popularity'][15068:16952]]  # Y_true = Y (original values)
+    Y_true = [dataDB['song_popularity'][traning_part:]]  # Y_true = Y (original values)
     # Y_true = [dataDB['song_popularity']]  # Y_true = Y (original values)
 
     # calculated values
@@ -27,13 +26,14 @@ def errorRate(exceptedPath, testPredRes):
     # print ('PATH_OF_DB read successfully')
     dataTstsRes = pd.read_csv(testPredRes)
     # print ('PATH_OF_TESTS_RES read successfully')
-
+    rowsCsv, colCsv = dataDB.shape
     errorRate = 0
     i = 0
-    len = 16952.0 - 15068.0
+    traning_part = int(0.8 * rowsCsv)
+    len = rowsCsv - traning_part
     # len = 5.0
     divN = 1 / len
-    for expected in dataDB['song_popularity'][15068:16952]:
+    for expected in dataDB['song_popularity'][traning_part:]:
         # for expected in dataDB['song_popularity'][0:5]:
         # print "{0} : {1} - {2}".format(i, expected, dataTstsRes['song_popularity'][i])
         pred = dataTstsRes['song_popularity'][i]
