@@ -27,10 +27,10 @@ class K2Const:
 
 class K2:
 
-    def __init__(self, ordered_list, db_file_name):
+    def __init__(self, ordered_file, db_file_name):
         self.u = K2Const.U
         self.db = self.getDB(db_file_name)
-        self.ordering = ordered_list
+        self.ordering = self.convertFileToOrdering(ordered_file)
         self.nodes = self.createNodeList(self.ordering)
 
     def getDB(self, pathDBFile):
@@ -190,3 +190,13 @@ class K2:
 
         print(dependencies)
         return dependencies
+
+    def convertFileToOrdering(self, ordered_file):
+        data = pd.read_csv(ordered_file, header=None)
+
+        rowsCsv, colCsv = data.shape
+        ordering = []
+        for i in range(0, rowsCsv):
+          ordering.append(data[0][i])
+
+        return ordering
