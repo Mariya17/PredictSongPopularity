@@ -60,14 +60,16 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
                                                 "Start Learning?",
                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if choice == QtWidgets.QMessageBox.Yes:
-            self.predictor.preprocessing()
-            self.progressBar.setValue(10)
-            self.predictor.performK2()
-            self.progressBar.setValue(25)
-            self.predictor.bayesianLearning()
-            self.progressBar.setValue(100)
 
-            # self.predictor.predict()
+
+            # self.predictor.preprocessing()
+            # self.progressBar.setValue(10)
+            # self.predictor.performK2()
+            # self.progressBar.setValue(25)
+            # self.predictor.bayesianLearning()
+            # self.progressBar.setValue(100)
+
+            self.predictor.predict()
             self.learningFlaf = True
             self.progressBar.hide()
             self.lb_completed.show()
@@ -107,12 +109,12 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
 
             ############## Testing #######################
             self.progressBar.setValue(3)
-            self.predictor.bayesianTesting()
-            self.progressBar.setValue(90)
-            self.predictor.mseMeasure()
-            self.progressBar.setValue(95)
-            self.predictor.errorInPresents()
-            self.progressBar.setValue(100)
+            # self.predictor.bayesianTesting()
+            # self.progressBar.setValue(90)
+            # self.predictor.mseMeasure()
+            # self.progressBar.setValue(95)
+            # self.predictor.errorInPresents()
+            # self.progressBar.setValue(100)
             # self.predictor.predict()
             self.progressBar.hide()
             self.lb_completed.show()

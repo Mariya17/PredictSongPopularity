@@ -2,79 +2,56 @@ import pandas as pd
 from pgmpy.models import BayesianModel
 from pgmpy.estimators import BayesianEstimator
 
+def take_only_relevant_features(DAG, db_file):
+    all_data = pd.read_csv(db_file)
 
-class BN:
-    def __init__(self, DAG):
-        self.data = []
-        self.model = BayesianModel(DAG)
+    data = pd.DataFrame()
+    relevant_features = ()
+    for tuple_of_two in DAG:
+        relevant_features = relevant_features + tuple_of_two
 
-    def take_only_relevant_features(self, DAG, db_file):
-        all_data = pd.read_csv(db_file)
+    for column in all_data:
+        if column in relevant_features:
+            data[column] = all_data[column]
+    return data
 
-        data = pd.DataFrame()
-        relevant_features = ()
-        for tuple_of_two in DAG:
-            relevant_features = relevant_features + tuple_of_two
+def BN(DAG, db_file, results_file):
 
-        for column in all_data:
-            if column in relevant_features:
-                data[column] = all_data[column]
-        return data
+    data = take_only_relevant_features(DAG, db_file)
 
-    def BNLearning(self, DAG, db_file):
-        self.data = self.take_only_relevant_features(DAG, db_file)
-        self.model = BayesianModel(DAG)
+    # separate data for test
+    training_part = int(0.8 * len(data))
+    predict_data = data[training_part:]
+    # training_data = data[:15068]
+    # predict_data = data[15068:16952]
 
-        self.model.fit(self.data, BayesianEstimator)
+    model = BayesianModel(DAG)
 
+    model.fit(data)
 
-    def BNTesting(self, results_file):
-        # separate data for test
-        training_part = int(0.8 * len(self.data))
-        testing_data = self.data[training_part:]
+    predict_data = predict_data.copy()
+    predict_data.drop('song_popularity', axis=1, inplace=True)
+    y_pred = model.predict(predict_data)
+    #print(y_pred)
 
-        # predict
-        predict_data = testing_data.copy()
-        predict_data.drop('song_popularity', axis=1, inplace=True)
-        y_pred = self.model.predict(predict_data)
-
-        with open(results_file, 'w', newline='') as file:
-            y_pred.to_csv(file)
-
-    # def BN(self, DAG, db_file, results_file):
-
-        # data = take_only_relevant_features(DAG, db_file)
-
-        # training_data = self.data[:15068]
-        # predict_data = self.data[15068:16952]
-        #
-        # model = BayesianModel(DAG)
-        #
-        # model.fit(data, BayesianEstimator)
-
-        # predict_data = predict_data.copy()
-        # predict_data.drop('song_popularity', axis=1, inplace=True)
-        # y_pred = self.model.predict(predict_data)
-        # #print(y_pred)
-        #
-        # with open(results_file, 'w', newline='') as file:
-        #     y_pred.to_csv(file)
+    with open(results_file, 'w', newline='') as file:
+        y_pred.to_csv(file)
 
 
-    def BNForOneSong(self, DAG, db_file, results_file, songFile):
-        data = self.take_only_relevant_features(DAG, db_file)
-        dataToPredictRF = self.take_only_relevant_features(DAG, songFile)
-        dataToPredict = pd.read_csv(songFile)
+def BNForOneSong(DAG, db_file, results_file, songFile):
+    data = take_only_relevant_features(DAG, db_file)
+    dataToPredictRF = take_only_relevant_features(DAG, songFile)
+    dataToPredict = pd.read_csv(songFile)
 
-        model = BayesianModel(DAG)
+    model = BayesianModel(DAG)
 
-        model.fit(data, BayesianEstimator)
+    model.fit(data, BayesianEstimator)
 
-        dataToPredictRF = dataToPredictRF.copy()
-        y_pred = model.predict(dataToPredictRF)
-        # print(y_pred)
+    dataToPredictRF = dataToPredictRF.copy()
+    y_pred = model.predict(dataToPredictRF)
+    # print(y_pred)
 
-        with open(results_file, 'w', newline='') as file:
-            y_pred.to_csv(file)
+    with open(results_file, 'w', newline='') as file:
+        y_pred.to_csv(file)
 
-        return y_pred['song_popularity'][0]
+    return y_pred['song_popularity'][0]
