@@ -1,0 +1,13 @@
+Parent,Child
+tempo,audio_mode
+audio_mode,song_duration_ms
+tempo,time_signature
+acousticness,instrumentalness
+acousticness,loudness
+instrumentalness,loudness
+tempo,speechiness
+audio_valence,danceability
+tempo,danceability
+speechiness,danceability
+instrumentalness,song_popularity
+loudness,song_popularity

@@ -19,16 +19,16 @@ class Ui_UserWindow(object):
         self.centralwidget = QtWidgets.QWidget(UserWindow)
         self.centralwidget.setGeometry(QtCore.QRect(-10, 0, 701, 621))
         self.centralwidget.setObjectName("centralwidget")
-        self.btn_loadASong = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_loadASong.setGeometry(QtCore.QRect(570, 60, 101, 41))
+        self.btn_BrowseASong = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_BrowseASong.setGeometry(QtCore.QRect(570, 60, 101, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
         font.setItalic(False)
         font.setWeight(75)
         font.setKerning(True)
-        self.btn_loadASong.setFont(font)
-        self.btn_loadASong.setStyleSheet("background-color: rgb(190, 178, 255);\n"
+        self.btn_BrowseASong.setFont(font)
+        self.btn_BrowseASong.setStyleSheet("background-color: rgb(190, 178, 255);\n"
 "border-style: outset;\n"
 "border-width: 2px;\n"
 "border-radius: 10px;\n"
@@ -37,7 +37,7 @@ class Ui_UserWindow(object):
 "min-width: 5em;\n"
 "padding: 6px;\n"
 "")
-        self.btn_loadASong.setObjectName("btn_loadASong")
+        self.btn_BrowseASong.setObjectName("btn_BrowseASong")
         self.btn_predict = QtWidgets.QPushButton(self.centralwidget)
         self.btn_predict.setGeometry(QtCore.QRect(490, 130, 186, 41))
         font = QtGui.QFont()
@@ -109,7 +109,7 @@ class Ui_UserWindow(object):
     def retranslateUi(self, UserWindow):
         _translate = QtCore.QCoreApplication.translate
         UserWindow.setWindowTitle(_translate("UserWindow", "MainWindow"))
-        self.btn_loadASong.setText(_translate("UserWindow", "Browse"))
+        self.btn_BrowseASong.setText(_translate("UserWindow", "Browse"))
         self.btn_predict.setText(_translate("UserWindow", "Predict"))
         self.btn_back.setText(_translate("UserWindow", "Back"))
         self.label_2.setText(_translate("UserWindow", "Load A Song"))
