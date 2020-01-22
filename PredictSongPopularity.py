@@ -24,12 +24,12 @@ class PredictSongPopularity:
                              'song_popularity']
 
 
-        self.db_file_name = 'song_data.csv'
-        self.predicted_results_file_name = 'predicted_results.csv'
-        self.predicted_single_song_result_file_name = 'predicted_single_song_result.csv'
-        self.DAG_File = 'DAG_File.csv'
+        self.db_file_name = 'C:/galitProject/PredictSongPopularity/song_data.csv'
+        self.predicted_results_file_name = 'C:/galitProject/PredictSongPopularity/predicted_results.csv'
+        self.predicted_single_song_result_file_name = 'C:/galitProject/PredictSongPopularity/predicted_single_song_result.csv'
+        self.DAG_File = 'C:/galitProject/PredictSongPopularity/DAG_File.csv'
 
-        self.processed_data_file_name = 'db_after_preprosessing.csv'
+        self.processed_data_file_name = 'C:/galitProject/PredictSongPopularity/db_after_preprosessing.csv'
         self.DAG = []
 
     def predict(self):
@@ -41,7 +41,7 @@ class PredictSongPopularity:
         3. 'Equal Steps'
         """
         data_base.data_preprosessing('Equal Steps')
-        K2Algorithm = k2.K2(self.ordered_list, self.processed_data_file_name)
+        K2Algorithm = k2.K2("C:\galitProject\PredictSongPopularity\k2input.csv", self.processed_data_file_name)
 
         # # DAG_uniform_distrebution = 	[('tempo', 'audio_mode'), ('audio_mode', 'song_duration_ms'), ('tempo', 'time_signature'), ('acousticness', 'instrumentalness'), ('song_duration_ms', 'instrumentalness'), ('acousticness', 'loudness'), ('instrumentalness', 'loudness'), ('acousticness', 'speechiness'), ('audio_valence', 'danceability'), ('tempo', 'danceability'), ('speechiness', 'danceability'), ('instrumentalness', 'song_popularity'), ('loudness', 'song_popularity'), ('energy', 'song_popularity')]
         # DAG_MeanShift = [('tempo', 'audio_mode'), ('audio_mode', 'song_duration_ms'), ('audio_mode', 'time_signature'), ('acousticness', 'instrumentalness'), ('song_duration_ms', 'instrumentalness'), ('acousticness', 'loudness'), ('tempo', 'danceability'), ('audio_valence', 'danceability'), ('speechiness', 'danceability'), ('instrumentalness', 'song_popularity'), ('acousticness', 'song_popularity')]
@@ -91,6 +91,14 @@ class PredictSongPopularity:
                                      songFile)
         print(res)
 
+
+def main():
+    predict = PredictSongPopularity()
+    predict.predict()
+
+
+if __name__ == '__main__':
+    main()
 # def main():
 #     predict = PredictSongPopularity()
 #     predict.predictSingle("C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
