@@ -21,7 +21,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>-10</y>
+     <y>0</y>
      <width>701</width>
      <height>621</height>
     </rect>
@@ -29,9 +29,9 @@
    <widget class="QPushButton" name="btn_loadDataBase">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>40</y>
-      <width>101</width>
+      <x>60</x>
+      <y>50</y>
+      <width>186</width>
       <height>41</height>
      </rect>
     </property>
@@ -51,19 +51,52 @@ border-width: 2px;
 border-radius: 10px;
 border-color: beige;
 font: bold 14px;
-min-width: 5em;
+min-width: 10em;
 padding: 6px;
 </string>
     </property>
     <property name="text">
-     <string>Browse</string>
+     <string>Load Data Base</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_updateDataBase">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>110</y>
+      <width>186</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(190, 178, 255);
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: bold 14px;
+min-width: 10em;
+padding: 6px;
+</string>
+    </property>
+    <property name="text">
+     <string>Update Data Base</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_testing">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>150</y>
+      <x>410</x>
+      <y>110</y>
       <width>186</width>
       <height>41</height>
      </rect>
@@ -95,8 +128,8 @@ padding: 6px;
    <widget class="QPushButton" name="btn_learning">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>150</y>
+      <x>410</x>
+      <y>50</y>
       <width>186</width>
       <height>41</height>
      </rect>
@@ -181,297 +214,6 @@ padding: 6px;
     </property>
     <property name="text">
      <string>Back</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>50</y>
-      <width>131</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Load Data Base</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="pt_dbpath">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>50</y>
-      <width>361</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lb_learnitg">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>220</y>
-      <width>211</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Bauhaus 93</family>
-      <pointsize>36</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-      <underline>false</underline>
-      <strikeout>false</strikeout>
-      <kerning>false</kerning>
-     </font>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::NoFocus</enum>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::DefaultContextMenu</enum>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);
-background-color: transparent;</string>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>Learning</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="tl_outputBox">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>340</y>
-      <width>451</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: transparent;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lb_testing">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>220</y>
-      <width>211</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Bauhaus 93</family>
-      <pointsize>36</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-      <underline>false</underline>
-      <strikeout>false</strikeout>
-      <kerning>false</kerning>
-     </font>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::NoFocus</enum>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::DefaultContextMenu</enum>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);
-background-color: transparent;</string>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>Testing</string>
-    </property>
-   </widget>
-   <widget class="QProgressBar" name="progressBar">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>290</y>
-      <width>351</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial Rounded MT Bold</family>
-      <pointsize>24</pointsize>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lb_completed">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>320</y>
-      <width>281</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Bauhaus 93</family>
-      <pointsize>36</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-      <underline>false</underline>
-      <strikeout>false</strikeout>
-      <kerning>false</kerning>
-     </font>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::NoFocus</enum>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::DefaultContextMenu</enum>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);
-background-color: transparent;</string>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>Completed</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_loadK2Input">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>90</y>
-      <width>101</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(190, 178, 255);
-border-style: outset;
-border-width: 2px;
-border-radius: 10px;
-border-color: beige;
-font: bold 14px;
-min-width: 5em;
-padding: 6px;
-</string>
-    </property>
-    <property name="text">
-     <string>Browse</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>100</y>
-      <width>131</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Load K2 Input</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="pt_k2path">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>100</y>
-      <width>361</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
   </widget>
