@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
+import Const
 
 def mse(exceptedPath, testPredRes):
     dataDB = pd.read_csv(exceptedPath)
@@ -46,7 +47,7 @@ def errorRate(exceptedPath, testPredRes):
     return errorRate
 
 def createGraph():
-    x, y = convertFileTofraph("C:\galitProject\PredictSongPopularity\graph.csv")
+    x, y = convertFileTofraph(Const.Files.graphFileName)
     for i in y:
         i = 100 - int(i)
     plt.plot(x, y,
