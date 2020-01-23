@@ -140,7 +140,11 @@ class Ui_AdministratorWindow(object):
         self.tl_outputBox = QtWidgets.QLabel(self.centralwidget)
         self.tl_outputBox.setEnabled(True)
         self.tl_outputBox.setGeometry(QtCore.QRect(40, 340, 451, 201))
-        self.tl_outputBox.setStyleSheet("background-color: transparent;")
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.tl_outputBox.setFont(font)
+        self.tl_outputBox.setStyleSheet("background-color: transparent;\n"
+"color: rgb(255, 255, 255);")
         self.tl_outputBox.setText("")
         self.tl_outputBox.setObjectName("tl_outputBox")
         self.lb_testing = QtWidgets.QLabel(self.centralwidget)
