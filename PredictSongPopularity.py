@@ -49,7 +49,7 @@ class PredictSongPopularity:
         K2Algorithm = k2.K2(Files.K2_INPUT, self.processed_data_file_name)
         self.DAG = K2Algorithm.k2()
         str = ''
-        if not('song_popularity' in self.DAG):
+        if not('song_popularity' in self.DAG[-1:][0]):
             str = 'Can not build a model with current K2 Input.\nPlease try another one. '
         self.convertDagToFile()
         return str
