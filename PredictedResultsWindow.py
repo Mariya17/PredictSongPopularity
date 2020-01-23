@@ -1,4 +1,4 @@
-
+from PredictSongPopularity import PREDICT_RES
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -90,6 +90,6 @@ class Ui_PredictedResultsWindow(object):
         self.lb1.setText(_translate("PredictedResultsWindow", "PREDICTION RESULTS"))
         self.learnitg_label_2.setText(_translate("PredictedResultsWindow", "Your song probability of success is between:"))
         self.lb_to.setText(_translate("PredictedResultsWindow", "to"))
-        self.pt_from.setPlainText(_translate("PredictedResultsWindow", "99%"))
-        self.pt_to.setPlainText(_translate("PredictedResultsWindow", "99%"))
+        self.pt_from.setPlainText(_translate("PredictedResultsWindow", str(PREDICT_RES * 20)+'%'))
+        self.pt_to.setPlainText(_translate("PredictedResultsWindow", str((PREDICT_RES * 20)+19)+'%'))
 
