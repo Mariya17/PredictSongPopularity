@@ -46,7 +46,11 @@ class PredictSongPopularity:
     def performK2(self):
         K2Algorithm = k2.K2(Files.K2_INPUT, self.processed_data_file_name)
         self.DAG = K2Algorithm.k2()
+        str = ''
+        if not('song_popularity' in self.DAG):
+            str = 'Can not build a model with current K2 Input.\nPlease try another one. '
         self.convertDagToFile()
+        return str
     #    3.
     def bayesianLearning(self):
         self.BN.BNLearning(self.DAG, self.processed_data_file_name)
@@ -65,7 +69,7 @@ class PredictSongPopularity:
     #    6.
     def errorInPresents(self):
         errorRate = Measurements.errorRate(self.processed_data_file_name, self.predicted_results_file_name)
-        str = "Error Rate is: {0}%\n".format(errorRate)
+        str = "Accuracy of prediction is: {0}%\n".format(100 - errorRate)
         print(str)
         return str
 
