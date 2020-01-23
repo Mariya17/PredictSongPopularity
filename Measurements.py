@@ -65,3 +65,6 @@ def convertFileTofraph(graph_file, fileType):
     y = [data[fileType][i] for i in range(0, rowsCsv)]
 
     return x, y
+
+def addToGraphFile():
+    pass
