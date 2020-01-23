@@ -47,7 +47,7 @@ class Ui_PredictingResults(object):
         self.label.setGeometry(QtCore.QRect(80, 130, 501, 511))
         self.label.setStyleSheet("")
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("abdolah.png"))
+        self.label.setPixmap(QtGui.QPixmap("../abdolah.png"))
         self.label.setObjectName("label")
         self.pt_from = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.pt_from.setGeometry(QtCore.QRect(190, 280, 141, 71))
@@ -73,12 +73,32 @@ class Ui_PredictingResults(object):
         self.pt_to.setStyleSheet("background-color: transparent;")
         self.pt_to.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.pt_to.setObjectName("pt_to")
+        self.btn_back = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_back.setGeometry(QtCore.QRect(540, 530, 118, 41))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        self.btn_back.setFont(font)
+        self.btn_back.setStyleSheet("background-color: rgb(75, 151, 225);\n"
+"border-style: outset;\n"
+"border-width: 2px;\n"
+"border-radius: 10px;\n"
+"border-color: beige;\n"
+"font: bold 14px;\n"
+"min-width: 6em;\n"
+"padding: 6px;\n"
+"")
+        self.btn_back.setObjectName("btn_back")
         self.label.raise_()
         self.lb1.raise_()
         self.learnitg_label_2.raise_()
         self.lb_to.raise_()
         self.pt_from.raise_()
         self.pt_to.raise_()
+        self.btn_back.raise_()
         self.menubar = QtWidgets.QMenuBar(PredictingResults)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 700, 21))
         self.menubar.setObjectName("menubar")
@@ -97,3 +117,4 @@ class Ui_PredictingResults(object):
         self.lb_to.setText(_translate("PredictingResults", "to"))
         self.pt_from.setPlainText(_translate("PredictingResults", "99%"))
         self.pt_to.setPlainText(_translate("PredictingResults", "99%"))
+        self.btn_back.setText(_translate("PredictingResults", "Back"))

@@ -129,6 +129,7 @@ class PredictSongPopularity:
         bn = BayesianNetwork.BN(self.DAG)
         res = bn.BNForOneSong(self.DAG, self.processed_data_file_name, self.predicted_results_file_name, songFile)
         print(res)
+        return res
 
 
 # def main():
