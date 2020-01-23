@@ -15,3 +15,7 @@ class PreprocessingTypes:
         UNIFORM_DISTRIBUTION =  'Uniform Distribution'
         EQUAL_STEPS =           'Equal Steps'   #UN_UNIFORM
         NUMBER_TO_DIV =         7
+
+class GraphType:
+        MSE = 'MSE'
+        ERROR_RATE = 'Error Rate'
