@@ -4,7 +4,7 @@ import k2
 import BayesianNetwork
 import DataPreprocessing
 import Measurements
-from Const import Files
+from Const import Files, PreprocessingTypes
 
 
 class PredictSongPopularity:
@@ -24,11 +24,13 @@ class PredictSongPopularity:
 		# 		        	 'energy',
         #                      'song_popularity']
 
-        self.db_file_name = Files.DB_BEFORE_PREPROSSECCING
+
+        self.db_file_name = Files.DB_BEFORE_PREPROCESSING
         self.predicted_results_file_name = Files.PREDICT_RESULTS
         self.predicted_single_song_result_file_name = Files.PREDICT_RESULTS_SINGLE_SONG
         self.DAG_File = Files.DAG
-        self.processed_data_file_name = Files.DB_AFTER_PREPROSSECCING
+
+        self.processed_data_file_name = Files.DB_AFTER_PREPROCESSING
         self.DAG = []
         self.BN = BayesianNetwork.BN(self.DAG)
 
@@ -41,7 +43,7 @@ class PredictSongPopularity:
         2. 'Uniform Distribution'
         3. 'Equal Steps'
         """
-        data_base.data_preprosessing('Equal Steps')
+        data_base.data_preprosessing(PreprocessingTypes.EQUAL_STEPS)
     #     2.
     def performK2(self):
         K2Algorithm = k2.K2(Files.K2_INPUT, self.processed_data_file_name)
@@ -108,7 +110,7 @@ class PredictSongPopularity:
 
         dictOfColumns = {'Parent': parent, 'Child': child}
         df = pd.DataFrame(dictOfColumns, columns=['Parent', 'Child'])
-        fileToExe = df.to_csv(r''+Files.DAG, index=None, header=True)
+        fileToExe = df.to_csv(r'' + Files.DAG, index=None, header=True)
 
     def convertFileToDAG(self):
         data = pd.read_csv(self.DAG_File, header=None)
@@ -122,7 +124,7 @@ class PredictSongPopularity:
 
     def predictSingle(self, songFile):
         data_base = DataPreprocessing.DataPeprocessing(self.db_file_name, self.processed_data_file_name)
-        data_base.data_preprosessing('Equal Steps')
+        data_base.data_preprosessing(PreprocessingTypes.EQUAL_STEPS)
         self.DAG = self.convertFileToDAG()
         bn = BayesianNetwork.BN(self.DAG)
         res = bn.BNForOneSong(self.DAG, self.processed_data_file_name, self.predicted_results_file_name, songFile)

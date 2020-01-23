@@ -2,6 +2,7 @@ import pandas as pd
 from collections import OrderedDict
 import numpy as np
 from sklearn.cluster import MeanShift, estimate_bandwidth
+from Const import PreprocessingTypes
 
 
 class DataPeprocessing:
@@ -46,7 +47,7 @@ class DataPeprocessing:
 
 
     # divide data to equal groups
-    def data_preprosessing_uniform_distribution(self, column_name, num_of_groups):
+    def data_preprosessing_uniform_distribution(self, column_name, num_of_groups):  #UNIFORM_DISTRIBUTION
         new_column = []
         line_of_value = {}
         column_size = len(self.data_frame[column_name])
@@ -75,19 +76,19 @@ class DataPeprocessing:
             new_column.append(dict_of_new_values[i])
         return new_column
 
-    def data_preprosessing_equal_range(self):
+    def data_preprosessing_equal_range(self): # EQUAL_STEPS, NUMBER_TO_DIV
         for column in range(len(self.header_sublist)):
             new_column = []
             max_val = max(self.data_frame[self.header_sublist[column]])
             min_val = min(self.data_frame[self.header_sublist[column]])
-            step_range = (max_val - min_val)/7
+            step_range = (max_val - min_val) / PreprocessingTypes.NUMBER_TO_DIV
             for i in range(len(self.data_frame[self.header_sublist[column]])):
                 new = self.categorize_value_to_equal_range(self.data_frame[self.header_sublist[column]][i], min_val, step_range)
                 new_column.append(new)
             self.new_data_frame[self.header_sublist[column]] = new_column
 
 
-    def meanShift(self, column):
+    def meanShift(self, column):    #MEAN_SHIF
         X = np.reshape(column, (-1, 1))
 
         bandwidth = estimate_bandwidth(X, quantile=0.1)
@@ -112,15 +113,15 @@ class DataPeprocessing:
     2. 'Uniform Distribution'
     3. 'Equal Steps'
     """
-    def data_preprosessing(self, method = 'MeanShirf'):
+    def data_preprosessing(self, method = PreprocessingTypes.MEAN_SHIFT):
 
         new_column = []
 
 
-        if method == 'Uniform Distribution':
+        if method == PreprocessingTypes.UNIFORM_DISTRIBUTION:
             for column in range(len(self.header_sublist)):
                 self.new_data_frame[self.header_sublist[column]] = self.data_preprosessing_uniform_distribution(self.header_sublist[column], 6)
-        elif method == 'Equal Steps':
+        elif method == PreprocessingTypes.EQUAL_STEPS:
             self.data_preprosessing_equal_range()
         else:   #'MeanShirf'
             for column in self.header_sublist:
