@@ -148,7 +148,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         self.k2InputFileName, _ = QFileDialog.getOpenFileName(self.clearMask(), "QFileDialog.getOpenFileName()", "",
-                                                                  "All Files (*);;DB Files (*.csv)", options=options)
+                                                                  "DB Files (*.csv)", options=options)
         if self.k2InputFileName != "empty":
             listOfK2InputFileName = self.k2InputFileName.split(".")
             endOfK2InputFileName = listOfK2InputFileName[len(listOfK2InputFileName) - 1]
