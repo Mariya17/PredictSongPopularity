@@ -76,12 +76,12 @@ class DataPeprocessing:
             new_column.append(dict_of_new_values[i])
         return new_column
 
-    def data_preprosessing_equal_range(self): # EQUAL_STEPS
+    def data_preprosessing_equal_range(self): # EQUAL_STEPS, NUMBER_TO_DIV
         for column in range(len(self.header_sublist)):
             new_column = []
             max_val = max(self.data_frame[self.header_sublist[column]])
             min_val = min(self.data_frame[self.header_sublist[column]])
-            step_range = (max_val - min_val)/7
+            step_range = (max_val - min_val) / PreprocessingTypes.NUMBER_TO_DIV
             for i in range(len(self.data_frame[self.header_sublist[column]])):
                 new = self.categorize_value_to_equal_range(self.data_frame[self.header_sublist[column]][i], min_val, step_range)
                 new_column.append(new)
