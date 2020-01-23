@@ -61,7 +61,6 @@ class PredictSongPopularity:
         str = "MSE is: {0}\n".format(mse)
         print(str)
         return str
-
     #    TODO: Galit - add print to graph file for the current div and type of preprosseccing
 
     #    6.
