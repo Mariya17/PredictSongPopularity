@@ -19,23 +19,23 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         self.perdictSongFileName, _ = QFileDialog.getOpenFileName(self.clearMask(), "QFileDialog.getOpenFileName()", "",
-                                                  "Song Files (*.csv);;All Files (*)", options=options)
+                                                  "Song Files (*.csv)", options=options)
         if not self.perdictSongFileName:
             error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage("No file selected. Please browse a song file")
+            error_dialog.showMessage("No file selected. Please select a song file")
             error_dialog.exec()
             self.plainTextEdit.clear()
-            self.plainTextEdit.setPlainText("Please browse a song file ")
+            self.plainTextEdit.setPlainText("Please select a song file ")
         elif self.perdictSongFileName != "empty":
             listOfPerdictSongFileName = self.perdictSongFileName.split(".")
             endOfselfpredictSongFileName = listOfPerdictSongFileName[len(listOfPerdictSongFileName) - 1]
             if endOfselfpredictSongFileName != "csv":
                 error_dialog = QtWidgets.QErrorMessage()
-                error_dialog.showMessage("Error: you browsed a '{0}' format file. Please load a 'csv' format file"
+                error_dialog.showMessage("Error: you selected a '{0}' format file. selecta 'csv' format file"
                                          .format(endOfselfpredictSongFileName))
                 error_dialog.exec()
                 self.plainTextEdit.clear()
-                self.plainTextEdit.setPlainText("Please browse again a song file ")
+                self.plainTextEdit.setPlainText("Please select again a song file ")
             else:
                 self.plainTextEdit.clear()
                 self.plainTextEdit.setPlainText(self.perdictSongFileName)
@@ -43,7 +43,7 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
     def predictSong(self):
         if self.perdictSongFileName == "empty":
             error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage("Please load a song")
+            error_dialog.showMessage("Please selecta song")
             error_dialog.exec()
         else:
             if os.path.isfile('./DAG_File.csv'):

@@ -79,7 +79,7 @@ class Ui_UserWindow(object):
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.plainTextEdit.setDisabled(True)
-        self.plainTextEdit.setPlainText("Please browse a song file")
+        self.plainTextEdit.setPlainText("Please select a song file")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(40, 80, 121, 21))
         font = QtGui.QFont()
