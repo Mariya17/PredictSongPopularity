@@ -34,7 +34,7 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
             endOfselfpredictSongFileName = listOfPerdictSongFileName[len(listOfPerdictSongFileName) - 1]
             if endOfselfpredictSongFileName != "csv":
                 error_dialog = QtWidgets.QErrorMessage()
-                error_dialog.showMessage("Error: you selected a '{0}' format file. selecta 'csv' format file"
+                error_dialog.showMessage("Error: you selected a '{0}' format file. select a 'csv' format file"
                                          .format(endOfselfpredictSongFileName))
                 error_dialog.exec()
                 self.plainTextEdit.clear()
