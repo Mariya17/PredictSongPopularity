@@ -279,8 +279,14 @@ background-color: transparent;</string>
       <height>201</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: transparent;</string>
+     <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string/>

@@ -57,6 +57,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.btn_loadDataBase.setDisabled(True)
         self.btn_learning.setDisabled(True)
         self.btn_testing.setDisabled(True)
+        self.btn_loadK2Input.setDisabled(True)
 
         choice = QtWidgets.QMessageBox.question(self.clearMask(), 'Message',
                                                 "Learning may take a lot of time.\n"
@@ -64,13 +65,18 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if choice == QtWidgets.QMessageBox.Yes:
             self.predictor.preprocessing()
+            log_str = 'Data Preprocessing Completed\nStarted K2 Algorithm\n'
+            self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(10)
             self.predictor.performK2()
+            log_str += 'K2 Algorithm Completed\nStarted Bayesian Learning Prossess\n'
+            self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(25)
             self.predictor.bayesianLearning()
+            log_str += 'Completed Bayesian Learning Prossess\n'
+            self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(100)
 
-            # self.predictor.predict()
             self.learningFlaf = True
             self.progressBar.hide()
             self.lb_completed.show()
@@ -82,7 +88,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.btn_loadDataBase.setDisabled(False)
         self.btn_learning.setDisabled(False)
         self.btn_testing.setDisabled(False)
-
+        self.btn_loadK2Input.setDisabled(False)
 
     def testing(self):
         if not self.learningFlaf:
@@ -96,11 +102,13 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.progressBar.setValue(0)
         self.progressBar.show()
 
+        self.tl_outputBox.setText('')
         self.btn_learning.setDisabled(True)
         self.btn_back.setDisabled(True)
         self.btn_loadDataBase.setDisabled(True)
         self.btn_learning.setDisabled(True)
         self.btn_testing.setDisabled(True)
+        self.btn_loadK2Input.setDisabled(True)
 
         choice = QtWidgets.QMessageBox.question(self.clearMask(), 'Message',
                                                 "Testining may take a lot of time.\n"
@@ -110,13 +118,18 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
 
             ############## Testing #######################
             self.progressBar.setValue(3)
+            log_str = 'Started Bayesian Testing\n'
+            self.tl_outputBox.setText(log_str)
             self.predictor.bayesianTesting()
+            log_str += 'Completed Testing\n'
+            self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(90)
-            self.predictor.mseMeasure()
+            log_str += self.predictor.mseMeasure()
+            self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(95)
-            self.predictor.errorInPresents()
+            log_str += self.predictor.errorInPresents()
+            self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(100)
-            # self.predictor.predict()
             self.progressBar.hide()
             self.lb_completed.show()
         else:
@@ -127,6 +140,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.btn_loadDataBase.setDisabled(False)
         self.btn_learning.setDisabled(False)
         self.btn_testing.setDisabled(False)
+        self.btn_loadK2Input.setDisabled(False)
 
     def browseK2Input(self):
         _translate = QtCore.QCoreApplication.translate
@@ -148,7 +162,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             else:
                 self.pt_k2path.clear()
                 self.pt_k2path.setPlainText(self.k2InputFileName)
-
+                self.predictor.ordered_list_file = self.k2InputFileName
 
 
 

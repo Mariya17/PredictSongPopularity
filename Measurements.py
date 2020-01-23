@@ -5,13 +5,11 @@ import Const
 
 def mse(exceptedPath, testPredRes):
     dataDB = pd.read_csv(exceptedPath)
-    # print ('PATH_OF_DB read successfully')
     dataTstsRes = pd.read_csv(testPredRes)
-    # print ('PATH_OF_TESTS_RES read successfully')
+
     traning_part = int(0.8 * len(dataDB))
     # Given values
     Y_true = [dataDB['song_popularity'][traning_part:]]  # Y_true = Y (original values)
-    # Y_true = [dataDB['song_popularity']]  # Y_true = Y (original values)
 
     # calculated values
     Y_pred = [dataTstsRes['song_popularity']]  # Y_pred = Y'
@@ -24,19 +22,17 @@ def mse(exceptedPath, testPredRes):
 
 def errorRate(exceptedPath, testPredRes):
     dataDB = pd.read_csv(exceptedPath)
-    # print ('PATH_OF_DB read successfully')
     dataTstsRes = pd.read_csv(testPredRes)
-    # print ('PATH_OF_TESTS_RES read successfully')
+
     rowsCsv, colCsv = dataDB.shape
     errorRate = 0
     i = 0
     traning_part = int(0.8 * rowsCsv)
     len = rowsCsv - traning_part
-    # len = 5.0
+
     divN = 1 / len
     for expected in dataDB['song_popularity'][traning_part:]:
-        # for expected in dataDB['song_popularity'][0:5]:
-        # print "{0} : {1} - {2}".format(i, expected, dataTstsRes['song_popularity'][i])
+
         pred = dataTstsRes['song_popularity'][i]
         temp = (abs(expected - pred) / (expected + 1)) * divN
         errorRate += temp
