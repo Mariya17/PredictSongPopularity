@@ -47,6 +47,16 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             self.plainTextEdit.clear()
             self.plainTextEdit.setPlainText("Please select a Data Base")
 
+    def disable_all_buttons(self, val):
+        self.btn_learning.setDisabled(val)
+        self.btn_back.setDisabled(val)
+        self.btn_loadDataBase.setDisabled(val)
+        self.btn_learning.setDisabled(val)
+        self.btn_testing.setDisabled(val)
+        self.btn_loadK2Input.setDisabled(val)
+        self.btn_statistics.setDisabled(val)
+
+
     def learning(self):
         if not self.newFileFlag:
             QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
@@ -59,12 +69,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.lb_learnitg.show()
         self.progressBar.setValue(0)
         self.progressBar.show()
-        self.btn_learning.setDisabled(True)
-        self.btn_back.setDisabled(True)
-        self.btn_loadDataBase.setDisabled(True)
-        self.btn_learning.setDisabled(True)
-        self.btn_testing.setDisabled(True)
-        self.btn_loadK2Input.setDisabled(True)
+        self.disable_all_buttons(True)
 
         choice = QtWidgets.QMessageBox.question(self.clearMask(), 'Message',
                                                 "Learning may take a lot of time.\n"
@@ -75,7 +80,12 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             log_str = 'Data Preprocessing Completed\nStarted K2 Algorithm\n'
             self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(10)
-            self.predictor.performK2()
+            k2_str = self.predictor.performK2()
+            if k2_str != '':
+                QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
+                                                  k2_str)
+                self.disable_all_buttons(False)
+                return
             log_str += 'K2 Algorithm Completed\nStarted Bayesian Learning Prossess\n'
             self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(25)
@@ -90,12 +100,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         else:
             self.lb_learnitg.hide()
             self.progressBar.hide()
-        self.btn_learning.setDisabled(False)
-        self.btn_back.setDisabled(False)
-        self.btn_loadDataBase.setDisabled(False)
-        self.btn_learning.setDisabled(False)
-        self.btn_testing.setDisabled(False)
-        self.btn_loadK2Input.setDisabled(False)
+        self.disable_all_buttons(False)
 
     def testing(self):
         if not self.learningFlaf:
@@ -110,13 +115,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.progressBar.show()
 
         self.tl_outputBox.setText('')
-        self.btn_learning.setDisabled(True)
-        self.btn_back.setDisabled(True)
-        self.btn_loadDataBase.setDisabled(True)
-        self.btn_learning.setDisabled(True)
-        self.btn_testing.setDisabled(True)
-        self.btn_loadK2Input.setDisabled(True)
-
+        self.disable_all_buttons(True)
         choice = QtWidgets.QMessageBox.question(self.clearMask(), 'Message',
                                                 "Testining may take a lot of time.\n"
                                                 "Start Testining?",
@@ -149,12 +148,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         else:
             self.lb_testing.hide()
             self.progressBar.hide()
-        self.btn_learning.setDisabled(False)
-        self.btn_back.setDisabled(False)
-        self.btn_loadDataBase.setDisabled(False)
-        self.btn_learning.setDisabled(False)
-        self.btn_testing.setDisabled(False)
-        self.btn_loadK2Input.setDisabled(False)
+        self.disable_all_buttons(False)
 
     def browseK2Input(self):
         _translate = QtCore.QCoreApplication.translate

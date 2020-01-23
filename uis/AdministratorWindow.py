@@ -39,7 +39,7 @@ class Ui_AdministratorWindow(object):
 "")
         self.btn_loadDataBase.setObjectName("btn_loadDataBase")
         self.btn_testing = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_testing.setGeometry(QtCore.QRect(460, 150, 186, 41))
+        self.btn_testing.setGeometry(QtCore.QRect(260, 150, 186, 41))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
@@ -231,6 +231,25 @@ class Ui_AdministratorWindow(object):
         self.pt_k2path.setFont(font)
         self.pt_k2path.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.pt_k2path.setObjectName("pt_k2path")
+        self.btn_statistics = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_statistics.setGeometry(QtCore.QRect(470, 150, 186, 41))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        self.btn_statistics.setFont(font)
+        self.btn_statistics.setStyleSheet("background-color: rgb(190, 178, 255);\n"
+"border-style: outset;\n"
+"border-width: 2px;\n"
+"border-radius: 10px;\n"
+"border-color: beige;\n"
+"font: bold 14px;\n"
+"min-width: 10em;\n"
+"padding: 6px;\n"
+"")
+        self.btn_statistics.setObjectName("btn_statistics")
         self.menubar = QtWidgets.QMenuBar(AdministratorWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 700, 21))
         self.menubar.setObjectName("menubar")
@@ -254,3 +273,4 @@ class Ui_AdministratorWindow(object):
         self.lb_completed.setText(_translate("AdministratorWindow", "Completed"))
         self.btn_loadK2Input.setText(_translate("AdministratorWindow", "Browse"))
         self.label_3.setText(_translate("AdministratorWindow", "Load K2 Input"))
+        self.btn_statistics.setText(_translate("AdministratorWindow", "Statistics"))

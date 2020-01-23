@@ -62,7 +62,7 @@ padding: 6px;
    <widget class="QPushButton" name="btn_testing">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>260</x>
       <y>150</y>
       <width>186</width>
       <height>41</height>
@@ -478,6 +478,39 @@ padding: 6px;
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_statistics">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>150</y>
+      <width>186</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(190, 178, 255);
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+font: bold 14px;
+min-width: 10em;
+padding: 6px;
+</string>
+    </property>
+    <property name="text">
+     <string>Statistics</string>
     </property>
    </widget>
   </widget>
