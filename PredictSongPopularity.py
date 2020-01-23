@@ -6,7 +6,6 @@ import DataPreprocessing
 import Measurements
 from Const import Files, PreprocessingTypes, GraphType
 
-PREDICT_RES = 0
 
 class PredictSongPopularity:
     def __init__(self):
@@ -133,7 +132,6 @@ class PredictSongPopularity:
         bn = BayesianNetwork.BN(self.DAG)
         res = bn.BNForOneSong(self.DAG, self.processed_data_file_name, self.predicted_results_file_name, songFile)
         print(res)
-        PREDICT_RES = res
         return res
 
 
