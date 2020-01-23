@@ -3,6 +3,7 @@ from AdministratorWindow import Ui_AdministratorWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from PredictSongPopularity import PredictSongPopularity
+from Const import Files
 
 progressValue = 100
 
@@ -19,6 +20,8 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.btn_loadK2Input.clicked.connect(self.browseK2Input)
         self.btn_learning.clicked.connect(self.learning)
         self.btn_testing.clicked.connect(self.testing)
+
+        self.graphFile = Files.GRAPH
 
     def loadDataBase(self):
         options = QFileDialog.Options()

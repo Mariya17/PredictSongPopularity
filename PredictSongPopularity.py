@@ -4,6 +4,7 @@ import k2
 import BayesianNetwork
 import DataPreprocessing
 import Measurements
+from Const import Files
 
 
 class PredictSongPopularity:
@@ -23,13 +24,11 @@ class PredictSongPopularity:
 		# 		        	 'energy',
         #                      'song_popularity']
 
-        self.ordered_list_file = "k2input.csv"
-        self.db_file_name = 'song_data.csv'
-        self.predicted_results_file_name = 'predicted_results.csv'
-        self.predicted_single_song_result_file_name = 'predicted_single_song_result.csv'
-        self.DAG_File = 'DAG_File.csv'
-
-        self.processed_data_file_name = 'db_after_preprosessing.csv'
+        self.db_file_name = Files.DB_BEFORE_PREPROSSECCING
+        self.predicted_results_file_name = Files.PREDICT_RESULTS
+        self.predicted_single_song_result_file_name = Files.PREDICT_RESULTS_SINGLE_SONG
+        self.DAG_File = Files.DAG
+        self.processed_data_file_name = Files.DB_AFTER_PREPROSSECCING
         self.DAG = []
         self.BN = BayesianNetwork.BN(self.DAG)
 
@@ -45,7 +44,7 @@ class PredictSongPopularity:
         data_base.data_preprosessing('Equal Steps')
     #     2.
     def performK2(self):
-        K2Algorithm = k2.K2(self.ordered_list_file, self.processed_data_file_name)
+        K2Algorithm = k2.K2(Files.K2_INPUT, self.processed_data_file_name)
         self.DAG = K2Algorithm.k2()
         self.convertDagToFile()
     #    3.
@@ -60,6 +59,8 @@ class PredictSongPopularity:
         str = "MSE is: {0}\n".format(mse)
         print(str)
         return str
+
+    #    TODO: Galit - add print to graph file for the current div and type of preprosseccing
 
     #    6.
     def errorInPresents(self):
@@ -107,7 +108,7 @@ class PredictSongPopularity:
 
         dictOfColumns = {'Parent': parent, 'Child': child}
         df = pd.DataFrame(dictOfColumns, columns=['Parent', 'Child'])
-        fileToExe = df.to_csv(r'DAG_File.csv', index=None, header=True)
+        fileToExe = df.to_csv(r''+Files.DAG, index=None, header=True)
 
     def convertFileToDAG(self):
         data = pd.read_csv(self.DAG_File, header=None)
@@ -123,22 +124,22 @@ class PredictSongPopularity:
         data_base = DataPreprocessing.DataPeprocessing(self.db_file_name, self.processed_data_file_name)
         data_base.data_preprosessing('Equal Steps')
         self.DAG = self.convertFileToDAG()
-        res = BayesianNetwork.BNForOneSong(self.DAG, self.processed_data_file_name, self.predicted_results_file_name,
-                                     songFile)
+        bn = BayesianNetwork.BN(self.DAG)
+        res = bn.BNForOneSong(self.DAG, self.processed_data_file_name, self.predicted_results_file_name, songFile)
         print(res)
 
 
 # def main():
 #     predict = PredictSongPopularity()
 #     predict.predict()
-
+#
 # def main():
 #     Measurements.createGraph()
-
-# def main():
-#     predict = PredictSongPopularity()
-#     predict.predictSingle("C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
 #
-#
+# # def main():
+# #     predict = PredictSongPopularity()
+# #     predict.predictSingle("C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
+# #
+# #
 # if __name__ == '__main__':
 #     main()

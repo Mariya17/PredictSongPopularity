@@ -1,15 +1,15 @@
 import pandas as pd
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-import numpy as np
+import Const
 
 def mse(exceptedPath, testPredRes):
     dataDB = pd.read_csv(exceptedPath)
     dataTstsRes = pd.read_csv(testPredRes)
 
-    training_part = int(0.8 * len(dataDB))
+    traning_part = int(0.8 * len(dataDB))
     # Given values
-    Y_true = [dataDB['song_popularity'][training_part:]]  # Y_true = Y (original values)
+    Y_true = [dataDB['song_popularity'][traning_part:]]  # Y_true = Y (original values)
 
     # calculated values
     Y_pred = [dataTstsRes['song_popularity']]  # Y_pred = Y'
@@ -27,11 +27,12 @@ def errorRate(exceptedPath, testPredRes):
     rowsCsv, colCsv = dataDB.shape
     errorRate = 0
     i = 0
-    training_part = int(0.8 * rowsCsv)
-    len = rowsCsv - training_part
-    divN = 1 / len
+    traning_part = int(0.8 * rowsCsv)
+    len = rowsCsv - traning_part
 
-    for expected in dataDB['song_popularity'][training_part:]:
+    divN = 1 / len
+    for expected in dataDB['song_popularity'][traning_part:]:
+
         pred = dataTstsRes['song_popularity'][i]
         temp = (abs(expected - pred) / (expected + 1)) * divN
         errorRate += temp
@@ -42,7 +43,7 @@ def errorRate(exceptedPath, testPredRes):
     return errorRate
 
 def createGraph():
-    x, y = convertFileTofraph("C:\galitProject\PredictSongPopularity\graph.csv")
+    x, y = convertFileTofraph(Const.Files.graphFileName)
     for i in y:
         i = 100 - int(i)
     plt.plot(x, y,
