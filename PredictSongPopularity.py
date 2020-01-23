@@ -4,6 +4,7 @@ import k2
 import BayesianNetwork
 import DataPreprocessing
 import Measurements
+from Const import Files
 
 
 class PredictSongPopularity:
@@ -24,12 +25,12 @@ class PredictSongPopularity:
         #                      'song_popularity']
 
 
-        self.db_file_name = 'C:/galitProject/PredictSongPopularity/song_data.csv'
-        self.predicted_results_file_name = 'C:/galitProject/PredictSongPopularity/predicted_results.csv'
-        self.predicted_single_song_result_file_name = 'C:/galitProject/PredictSongPopularity/predicted_single_song_result.csv'
-        self.DAG_File = 'C:/galitProject/PredictSongPopularity/DAG_File.csv'
+        self.db_file_name = Files.DB_BEFORE_PREPROSSECCING
+        self.predicted_results_file_name = Files.PREDICT_RESULTS
+        self.predicted_single_song_result_file_name = Files.PREDICT_RESULTS_SINGLE_SONG
+        self.DAG_File = Files.DAG
 
-        self.processed_data_file_name = 'C:/galitProject/PredictSongPopularity/db_after_preprosessing.csv'
+        self.processed_data_file_name = Files.DB_AFTER_PREPROSSECCING
         self.DAG = []
         self.BN = BayesianNetwork.BN(self.DAG)
 
@@ -45,7 +46,7 @@ class PredictSongPopularity:
         data_base.data_preprosessing('Equal Steps')
     #     2.
     def performK2(self):
-        K2Algorithm = k2.K2("C:\galitProject\PredictSongPopularity\k2input.csv", self.processed_data_file_name)
+        K2Algorithm = k2.K2(Files.K2_INPUT, self.processed_data_file_name)
 
         # # DAG_uniform_distrebution = 	[('tempo', 'audio_mode'), ('audio_mode', 'song_duration_ms'), ('tempo', 'time_signature'), ('acousticness', 'instrumentalness'), ('song_duration_ms', 'instrumentalness'), ('acousticness', 'loudness'), ('instrumentalness', 'loudness'), ('acousticness', 'speechiness'), ('audio_valence', 'danceability'), ('tempo', 'danceability'), ('speechiness', 'danceability'), ('instrumentalness', 'song_popularity'), ('loudness', 'song_popularity'), ('energy', 'song_popularity')]
         # DAG_MeanShift = [('tempo', 'audio_mode'), ('audio_mode', 'song_duration_ms'), ('audio_mode', 'time_signature'), ('acousticness', 'instrumentalness'), ('song_duration_ms', 'instrumentalness'), ('acousticness', 'loudness'), ('tempo', 'danceability'), ('audio_valence', 'danceability'), ('speechiness', 'danceability'), ('instrumentalness', 'song_popularity'), ('acousticness', 'song_popularity')]
@@ -68,10 +69,13 @@ class PredictSongPopularity:
         mse = Measurements.mse(self.processed_data_file_name, self.predicted_results_file_name)
         print("MSE is: {0}%".format(mse))
 
+    #    TODO: Galit - add print to graph file for the current div and type of preprosseccing
+
     #    6.
     def errorInPresents(self):
         errorRate = Measurements.errorRate(self.processed_data_file_name, self.predicted_results_file_name)
         print("Error Rate is: {0}%".format(errorRate))
+    #    TODO: Galit - add print to graph file for the current div and type of preprosseccing
 
     # def predict(self):
         # print('Started learning\n')
@@ -112,7 +116,7 @@ class PredictSongPopularity:
 
         dictOfColumns = {'Parent': parent, 'Child': child}
         df = pd.DataFrame(dictOfColumns, columns=['Parent', 'Child'])
-        fileToExe = df.to_csv(r'C:/galitProject/PredictSongPopularity/DAG_File.csv', index=None, header=True)
+        fileToExe = df.to_csv(r''+Files.DAG, index=None, header=True)
 
     def convertFileToDAG(self):
         data = pd.read_csv(self.DAG_File, header=None)
