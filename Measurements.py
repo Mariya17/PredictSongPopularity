@@ -42,8 +42,8 @@ def errorRate(exceptedPath, testPredRes):
 
     return errorRate
 
-def createGraph():
-    x, y = convertFileTofraph(Const.Files.graphFileName)
+def createGraph(fileType):
+    x, y = convertFileTofraph(Const.Files.GRAPH, fileType)
     for i in y:
         i = 100 - int(i)
     plt.plot(x, y,
@@ -52,18 +52,16 @@ def createGraph():
              linestyle='dashed',
              linewidth=2,
              markersize=4)
-
-
-    plt.title('UnUniform')
+    plt.title(fileType)
     plt.xlabel('div')
     plt.ylabel('success')
     plt.show()
 
-def convertFileTofraph(graph_file):
+def convertFileTofraph(graph_file, fileType):
     data = pd.read_csv(graph_file)
 
     rowsCsv, colCsv = data.shape
     x = [data['x'][i] for i in range(0, rowsCsv)]
-    y = [data['y'][i] for i in range(0, rowsCsv)]
+    y = [data[fileType][i] for i in range(0, rowsCsv)]
 
     return x, y
