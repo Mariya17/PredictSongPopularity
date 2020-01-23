@@ -4,7 +4,7 @@ import k2
 import BayesianNetwork
 import DataPreprocessing
 import Measurements
-from Const import Files, PreprocessingTypes
+from Const import Files, PreprocessingTypes, GraphType
 
 
 class PredictSongPopularity:
@@ -135,13 +135,14 @@ class PredictSongPopularity:
 #     predict = PredictSongPopularity()
 #     predict.predict()
 #
-# def main():
-#     Measurements.createGraph()
 #
 # # def main():
 # #     predict = PredictSongPopularity()
 # #     predict.predictSingle("C:/galitProject/PredictSongPopularity/testPredictSingleSong.csv")
 # #
 # #
+# def main():
+#     Measurements.createGraph(GraphType.ERROR_RATE)
+#     Measurements.createGraph(GraphType.MSE)
 # if __name__ == '__main__':
 #     main()
