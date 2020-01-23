@@ -42,6 +42,7 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
             else:
                 self.plainTextEdit.clear()
                 self.plainTextEdit.setPlainText(self.perdictSongFileName)
+
     def setPredictionEstimation(self, res):
         if res == 4:
             self.predictedResults.pt_from.setPlainText('99%')
@@ -64,7 +65,7 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
     def predictSong(self):
         if self.perdictSongFileName == "empty":
             error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage("Please selecta song")
+            error_dialog.showMessage("Please select a song")
             error_dialog.exec()
         else:
             if os.path.isfile('./DAG_File.csv'):
