@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import Const
+import easygui
+
+
 
 def mse(exceptedPath, testPredRes):
     dataDB = pd.read_csv(exceptedPath)
@@ -62,8 +65,15 @@ def createGraph():
     data = pd.read_csv(Const.Files.GRAPH)
     rowsCsv, colCsv = data.shape
     x = [data['x'][i] for i in range(0, rowsCsv)]
-    errorRateList = [data[Const.GraphType.ERROR_RATE][i] for i in range(0, rowsCsv)]
-    mseList = [data[Const.GraphType.MSE][i] for i in range(0, rowsCsv)]
+    title = 'there is no statistics to shoe. please test a model to create statistics.'
+    if len(x)==0:
+        x = [0]
+        errorRateList = [0]
+        mseList = [0]
+    else:
+        title = "Uniform method"
+        errorRateList = [data[Const.GraphType.ERROR_RATE][i] for i in range(0, rowsCsv)]
+        mseList = [data[Const.GraphType.MSE][i] for i in range(0, rowsCsv)]
     for i in errorRateList:
         i = 100 - int(i)
     # width of the bars
@@ -84,7 +94,7 @@ def createGraph():
     plt.legend()
 
     # Show graphic
-    plt.suptitle("Uniform method")
+    plt.suptitle(title)
     plt.show()
 
 
@@ -105,15 +115,15 @@ def addToGraphFile(mse, error):
     errorRateList = [data[Const.GraphType.ERROR_RATE][i] for i in range(0, rowsCsv)]
     mseList = [data[Const.GraphType.MSE][i] for i in range(0, rowsCsv)]
     index = rowsCsv
-    if data['x'][0] == "empty":
-        x = x[:-1]
-        mseList = mseList[:-1]
-        errorRateList = errorRateList[:-1]
-    else:
-        for i in range(0, rowsCsv):
-            if int(x[i]) >= Const.PreprocessingTypes.NUMBER_TO_DIV:
-                index = i
-                break
+    # if len(x)==0:
+    #     x = x[:-1]
+    #     mseList = mseList[:-1]
+    #     errorRateList = errorRateList[:-1]
+    # else:
+    for i in range(0, rowsCsv):
+        if int(x[i]) >= Const.PreprocessingTypes.NUMBER_TO_DIV:
+            index = i
+            break
     x.insert(index, str(Const.PreprocessingTypes.NUMBER_TO_DIV))
     errorRateList.insert(index, str(error))
     mseList.insert(index, str(mse))
