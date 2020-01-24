@@ -120,7 +120,7 @@ class DataPeprocessing:
 
         if method == PreprocessingTypes.UNIFORM_DISTRIBUTION:
             for column in range(len(self.header_sublist)):
-                self.new_data_frame[self.header_sublist[column]] = self.data_preprosessing_uniform_distribution(self.header_sublist[column], 6)
+                self.new_data_frame[self.header_sublist[column]] = self.data_preprosessing_uniform_distribution(self.header_sublist[column], PreprocessingTypes.NUM_TO_DIV_UNIFORM)
         elif method == PreprocessingTypes.EQUAL_STEPS:
             self.data_preprosessing_equal_range()
         else:   #'MeanShirf'
@@ -133,17 +133,18 @@ class DataPeprocessing:
 
         #####################################
         for i in range(len(self.data_frame['song_popularity'])):
-            if self.data_frame['song_popularity'][i] < 20:
+            if self.data_frame['song_popularity'][i] < 17:
                 new_column.append(0)
-            elif self.data_frame['song_popularity'][i] < 40:
+            elif self.data_frame['song_popularity'][i] < 34:
                 new_column.append(1)
-            elif self.data_frame['song_popularity'][i] < 60:
+            elif self.data_frame['song_popularity'][i] < 51:
                 new_column.append(2)
-            elif self.data_frame['song_popularity'][i] < 80:
+            elif self.data_frame['song_popularity'][i] < 68:
                 new_column.append(3)
-            else:
+            elif self.data_frame['song_popularity'][i] < 85:
                 new_column.append(4)
-
+            else:
+                new_column.append(5)
         self.new_data_frame['song_popularity'] = new_column
 
         self.new_data_frame.to_csv(self.output_file_name)

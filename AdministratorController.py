@@ -132,6 +132,10 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             self.progressBar.setValue(90)
             mseStr = self.predictor.mseMeasure()
             log_str += mseStr
+            mseList = mseStr.split(' ')
+            mseStr = mseList[len(mseList) - 1]
+            mseList = mseStr.split('\n')
+            mseStr = mseList[0]
             self.tl_outputBox.setText(log_str)
             self.progressBar.setValue(95)
             errorRateStr = self.predictor.errorInPresents()
