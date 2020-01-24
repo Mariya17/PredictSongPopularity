@@ -44,7 +44,7 @@ class PredictSongPopularity:
         2. 'Uniform Distribution'
         3. 'Equal Steps'
         """
-        data_base.data_preprosessing(PreprocessingTypes.EQUAL_STEPS)
+        data_base.data_preprosessing(PreprocessingTypes.UNIFORM_DISTRIBUTION)
     #     2.
     def performK2(self):
         K2Algorithm = k2.K2(Files.K2_INPUT, self.processed_data_file_name)

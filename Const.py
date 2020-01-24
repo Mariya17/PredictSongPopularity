@@ -14,7 +14,8 @@ class PreprocessingTypes:
         MEAN_SHIFT =            'MeanShirf'     # default
         UNIFORM_DISTRIBUTION =  'Uniform Distribution'
         EQUAL_STEPS =           'Equal Steps'   #UN_UNIFORM
-        NUMBER_TO_DIV =         7
+        NUMBER_TO_DIV =         8
+        NUM_TO_DIV_UNIFORM =       6
 
 class GraphType:
         MSE = 'MSE'
