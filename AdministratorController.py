@@ -22,6 +22,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.btn_loadK2Input.clicked.connect(self.browseK2Input)
         self.btn_learning.clicked.connect(self.learning)
         self.btn_testing.clicked.connect(self.testing)
+        self.btn_statistics.clicked.connect(self.showGraph)
 
         self.graphFile = Files.GRAPH
 
@@ -184,5 +185,6 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
                 self.pt_k2path.setPlainText(self.k2InputFileName)
                 self.predictor.ordered_list_file = self.k2InputFileName
 
-
+    def showGraph(self):
+        Measurements.createGraph()
 
