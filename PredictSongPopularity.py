@@ -102,5 +102,8 @@ class PredictSongPopularity:
 # def main():
 #     Measurements.createGraph(GraphType.ERROR_RATE)
 #     Measurements.createGraph(GraphType.MSE)
+#
+# def main():
+#     Measurements.createGraph()
 # if __name__ == '__main__':
 #     main()
