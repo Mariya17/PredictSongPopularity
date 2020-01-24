@@ -1,9 +1,9 @@
-from UserWindow import Ui_UserWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
-from PredictedResultsController import PredictedResultsController
-import PredictSongPopularity
 import os
+from UserWindow import Ui_UserWindow
+import PredictSongPopularity
+from PredictedResultsController import PredictedResultsController
 
 class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
     def __init__(self, parent=None):
