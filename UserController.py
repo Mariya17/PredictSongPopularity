@@ -44,23 +44,32 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
                 self.plainTextEdit.setPlainText(self.perdictSongFileName)
 
     def setPredictionEstimation(self, res):
-        if res == 4:
-            self.predictedResults.pt_from.setPlainText('99%')
-            self.predictedResults.pt_to.setPlainText('80%')
+        from_val = ''
+        to_val = ''
+        if res == 5:
+            from_val = '99%'
+            to_val = '85%'
+        elif res == 4:
+            from_val = '84%'
+            to_val = '68%'
         elif res == 3:
-            self.predictedResults.pt_from.setPlainText('79%')
-            self.predictedResults.pt_to.setPlainText('60%')
+            from_val = '67%'
+            to_val = '51%'
         elif res == 2:
-            self.predictedResults.pt_from.setPlainText('59%')
-            self.predictedResults.pt_to.setPlainText('40%')
+            from_val = '50%'
+            to_val = '34%'
         elif res == 1:
-            self.predictedResults.pt_from.setPlainText('39%')
-            self.predictedResults.pt_to.setPlainText('20%')
+            from_val = '33%'
+            to_val = '17%'
         else:
-            self.predictedResults.pt_from.setPlainText('19%')
-            self.predictedResults.pt_to.setPlainText('0%')
+            from_val = '16%'
+            to_val = '0%'
+
+        self.predictedResults.pt_from.setPlainText(from_val)
+        self.predictedResults.pt_to.setPlainText(to_val)
         self.predictedResults.pt_from.setEnabled(False)
         self.predictedResults.pt_to.setEnabled(False)
+
 
     def predictSong(self):
         if self.perdictSongFileName == "empty":

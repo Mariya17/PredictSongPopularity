@@ -35,7 +35,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             self.predictor.db_file_name = fileName
             self.pt_dbpath.setDisabled(True)
             fileSize = os.path.getsize(fileName)
-            if fileSize < 100:
+            if fileSize < 10000:
                 QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
                                                   "The data base is too small or empty.\nTry another one.")
             else:
