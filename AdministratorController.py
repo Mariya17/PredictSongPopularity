@@ -37,16 +37,14 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             self.pt_dbpath.setDisabled(True)
             fileSize = os.path.getsize(fileName)
             if fileSize < 10000:
-                QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
+                QtWidgets.QMessageBox.information(self.clearMask(), "Data Error",
                                                   "The data base is too small or empty.\nTry another one.")
             else:
                 self.newFileFlag = True
         else:
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage("No file selected. Please select a Data Base")
-            error_dialog.exec()
-            self.plainTextEdit.clear()
-            self.plainTextEdit.setPlainText("Please select a Data Base")
+            QtWidgets.QMessageBox.information(self.clearMask(), "Data Error",
+                                        "No file selected. Please select a Data Base")
+            return
 
     def disable_all_buttons(self, val):
         self.btn_learning.setDisabled(val)
@@ -60,11 +58,11 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
 
     def learning(self):
         if not self.newFileFlag:
-            QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
+            QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
                                               "Please select a Data Base for learning.")
             return
         if self.k2InputFileName == "empty":
-            QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
+            QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
                                               "Please select a K2 Input before learning.")
             return
         self.lb_learnitg.show()
@@ -83,7 +81,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             self.progressBar.setValue(10)
             k2_str = self.predictor.performK2()
             if k2_str != '':
-                QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
+                QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
                                                   k2_str)
                 self.disable_all_buttons(False)
                 return
@@ -105,7 +103,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
 
     def testing(self):
         if not self.learningFlaf:
-            QtWidgets.QMessageBox.information(self.clearMask(), "QMessageBox.information()",
+            QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
                                     "Please complete Learning before Testing")
             return
         self.lb_learnitg.hide()
@@ -164,21 +162,17 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
 
                                                                   "DB Files (*.csv)", options=options)
         if not self.k2InputFileName:
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage("No file selected. Please select a K2 Input")
-            error_dialog.exec()
-            self.plainTextEdit.clear()
-            self.plainTextEdit.setPlainText("Please select a K2 Input")
+            QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
+                                              "No file selected. Please select a K2 Input")
+            return
         elif self.k2InputFileName != "empty":
             listOfK2InputFileName = self.k2InputFileName.split(".")
             endOfK2InputFileName = listOfK2InputFileName[len(listOfK2InputFileName) - 1]
             if endOfK2InputFileName != "csv":
-                error_dialog = QtWidgets.QErrorMessage()
-                error_dialog.showMessage("Error: you selected a '{0}' format file. Please select a 'csv' format file"
+                QtWidgets.QMessageBox.information(self.clearMask(), "Error Message",
+                                                  "Error: you selected a '{0}' format file. Please select a 'csv' format file"
                                          .format(endOfK2InputFileName))
-                error_dialog.exec()
-                self.pt_k2path.clear()
-                self.pt_k2path.setPlainText("Please select again a K2 Input")
+                return
             else:
                 self.pt_k2path.clear()
                 self.pt_k2path.setPlainText(self.k2InputFileName)

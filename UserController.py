@@ -24,21 +24,17 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
         self.perdictSongFileName, _ = QFileDialog.getOpenFileName(self.clearMask(), "QFileDialog.getOpenFileName()", "",
                                                   "Song Files (*.csv)", options=options)
         if not self.perdictSongFileName:
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage("No file selected. Please select a song file")
-            error_dialog.exec()
-            self.plainTextEdit.clear()
-            self.plainTextEdit.setPlainText("Please select a song file ")
+            QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
+                                              "No file selected. Please select a song file")
+            return
         elif self.perdictSongFileName != "empty":
             listOfPerdictSongFileName = self.perdictSongFileName.split(".")
             endOfselfpredictSongFileName = listOfPerdictSongFileName[len(listOfPerdictSongFileName) - 1]
             if endOfselfpredictSongFileName != "csv":
-                error_dialog = QtWidgets.QErrorMessage()
-                error_dialog.showMessage("Error: you selected a '{0}' format file. select a 'csv' format file"
+                QtWidgets.QMessageBox.information(self.clearMask(), "Error Message",
+                                                  "Error: you selected a '{0}' format file. select a 'csv' format file"
                                          .format(endOfselfpredictSongFileName))
-                error_dialog.exec()
-                self.plainTextEdit.clear()
-                self.plainTextEdit.setPlainText("Please select again a song file ")
+                return
             else:
                 self.plainTextEdit.clear()
                 self.plainTextEdit.setPlainText(self.perdictSongFileName)
@@ -73,9 +69,8 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
 
     def predictSong(self):
         if self.perdictSongFileName == "empty":
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage("Please select a song")
-            error_dialog.exec()
+            QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
+                                              "Please select a song")
         else:
             if os.path.isfile('./DAG_File.csv'):
                 print("predicting")
@@ -85,9 +80,8 @@ class UserController(QtWidgets.QMainWindow, Ui_UserWindow):
 
                 self.predictedResults.show()
             else:
-                error_dialog = QtWidgets.QErrorMessage()
-                error_dialog.showMessage("There is no predicting model. Please contact your administrator")
-                error_dialog.exec()
+                QtWidgets.QMessageBox.information(self.clearMask(), "Info Message",
+                                                  "There is no predicting model. Please contact your administrator")
 
 
 
