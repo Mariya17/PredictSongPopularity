@@ -1,5 +1,5 @@
-DIRECTORY = 'C:/galitProject/PredictSongPopularity/' #Galit
-# DIRECTORY = '' #Mariya
+# DIRECTORY = 'C:/galitProject/PredictSongPopularity/' #Galit
+DIRECTORY = '' #Mariya
 
 class Files:
         DB_BEFORE_PREPROCESSING =      DIRECTORY + 'song_data.csv'

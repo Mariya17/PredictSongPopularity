@@ -42,8 +42,26 @@ class DataPeprocessing:
             return 5
         elif value < (min_val + step_range * 7):
             return 6
-        else:
+        elif value < (min_val + step_range * 8):
             return 7
+        elif value < (min_val + step_range * 9):
+            return 8
+        elif value < (min_val + step_range * 10):
+            return 9
+        elif value < (min_val + step_range * 11):
+            return 10
+        elif value < (min_val + step_range * 12):
+            return 11
+        elif value < (min_val + step_range * 13):
+            return 12
+        elif value < (min_val + step_range * 14):
+            return 13
+        elif value < (min_val + step_range * 15):
+            return 14
+        elif value < (min_val + step_range * 16):
+            return 15
+        else:
+            return 16
 
     def data_preprosessing_uniform_distribution(self, column_name, num_of_groups):  #UNIFORM_DISTRIBUTION
         """`divide data to equal groups
