@@ -3,7 +3,6 @@ import itertools
 import math
 from decimal import Decimal
 
-
 class Node:
     def __init__(self, name, nodeData, listOfPotentialParents):
         self.name = name
@@ -20,7 +19,6 @@ class Node:
             if self.nodeData[row] not in vals:
                 vals.append(self.nodeData[row])
         return vals
-
 
 class K2Const:
         U =                         13
@@ -79,9 +77,11 @@ class K2:
             instance = instance + (inst[row],)
         return instance
 
-    # This function will summarize all instances and return a dictionary
-    # of instance(tuple) as a key and amount of it's appearances as value
     def calculateNumberOfInstances(self, node, parents, possibleInstances):
+        """
+        This function will summarize all instances and return a dictionary
+        of instance(tuple) as a key and amount of it's appearances as value
+        """
         instansesFromDB = []
         for parentNode in self.nodes:
             if (parentNode in parents) or (parentNode is node):

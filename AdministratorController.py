@@ -1,10 +1,11 @@
-import os
-from AdministratorWindow import Ui_AdministratorWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
-from PredictSongPopularity import PredictSongPopularity
+import os
 from Const import Files
+
+from AdministratorWindow import Ui_AdministratorWindow
 import Measurements
+from PredictSongPopularity import PredictSongPopularity
 
 progressValue = 100
 

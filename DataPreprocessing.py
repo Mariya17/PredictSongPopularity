@@ -63,9 +63,9 @@ class DataPeprocessing:
         else:
             return 16
 
-
-    # divide data to equal groups
     def data_preprosessing_uniform_distribution(self, column_name, num_of_groups):  #UNIFORM_DISTRIBUTION
+        """`divide data to equal groups
+        """
         new_column = []
         line_of_value = {}
         column_size = len(self.data_frame[column_name])
@@ -105,7 +105,6 @@ class DataPeprocessing:
                 new_column.append(new)
             self.new_data_frame[self.header_sublist[column]] = new_column
 
-
     def meanShift(self, column):    #MEAN_SHIF
         X = np.reshape(column, (-1, 1))
 
@@ -125,14 +124,14 @@ class DataPeprocessing:
 
         return labels, cluster_centers
 
-    """
+    def data_preprosessing(self, method = PreprocessingTypes.MEAN_SHIFT):
+
+        """
     Thtis method will prepare the data by three optional methods:
     1. 'MeanShirf' - default
     2. 'Uniform Distribution'
     3. 'Equal Steps'
     """
-    def data_preprosessing(self, method = PreprocessingTypes.MEAN_SHIFT):
-
         new_column = []
 
 

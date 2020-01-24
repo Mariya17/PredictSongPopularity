@@ -2,9 +2,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QPushButton
 import sys
 
+from MainWindow import Ui_MainWindow
 from AdministratorController import AdministratorController
 from UserController import UserController
-from MainWindow import Ui_MainWindow
 
 
 class MainController(QtWidgets.QMainWindow, Ui_MainWindow):

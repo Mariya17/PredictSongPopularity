@@ -1,5 +1,5 @@
-import pandas as pd
 from sklearn.metrics import mean_squared_error
+import pandas as pd
 import matplotlib.pyplot as plt
 import Const
 
