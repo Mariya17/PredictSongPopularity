@@ -66,5 +66,27 @@ def convertFileTofraph(graph_file, fileType):
 
     return x, y
 
-def addToGraphFile():
-    pass
+def addToGraphFile(mse, error):
+    data = pd.read_csv(Const.Files.GRAPH)
+    rowsCsv, colCsv = data.shape
+    x = [data['x'][i] for i in range(0, rowsCsv)]
+    errorRateList = [data[Const.GraphType.ERROR_RATE][i] for i in range(0, rowsCsv)]
+    mseList = [data[Const.GraphType.MSE][i] for i in range(0, rowsCsv)]
+    index = rowsCsv
+    if data['x'][0] == "empty":
+        x = x[:-1]
+        mseList = mseList[:-1]
+        errorRateList = errorRateList[:-1]
+    else:
+        for i in range(0, rowsCsv):
+            if int(x[i]) >= Const.PreprocessingTypes.NUMBER_TO_DIV:
+                index = i
+                break
+    x.insert(index, str(Const.PreprocessingTypes.NUMBER_TO_DIV))
+    errorRateList.insert(index, str(error))
+    mseList.insert(index, str(mse))
+
+    dictOfColumns = {'x': x, Const.GraphType.ERROR_RATE: errorRateList, Const.GraphType.MSE: mseList}
+    df = pd.DataFrame(dictOfColumns, columns=['x', Const.GraphType.ERROR_RATE, Const.GraphType.MSE])
+    fileToExe = df.to_csv(r'' + Const.Files.GRAPH, index=None, header=True)
+
