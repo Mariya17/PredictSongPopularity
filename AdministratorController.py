@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 import os
 from Const import Files
+from Const import PreprocessingTypes
 
 from AdministratorWindow import Ui_AdministratorWindow
 import Measurements
@@ -37,7 +38,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
             self.predictor.db_file_name = fileName
             self.pt_dbpath.setDisabled(True)
             fileSize = os.path.getsize(fileName)
-            if fileSize < 10000:
+            if fileSize < 1000:
                 QtWidgets.QMessageBox.information(self.clearMask(), "Data Error",
                                                   "The data base is too small or empty.\nTry another one.")
             else:
@@ -70,6 +71,7 @@ class AdministratorController(QtWidgets.QMainWindow, Ui_AdministratorWindow):
         self.progressBar.setValue(0)
         self.progressBar.show()
         self.disable_all_buttons(True)
+        PreprocessingTypes.NUMBER_TO_DIV = self.spinBox.value()
 
         choice = QtWidgets.QMessageBox.question(self.clearMask(), 'Message',
                                                 "Learning may take a lot of time.\n"

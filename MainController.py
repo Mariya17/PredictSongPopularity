@@ -1,5 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QPushButton
+from PyQt5 import QtWidgets
 import sys
 
 from MainWindow import Ui_MainWindow

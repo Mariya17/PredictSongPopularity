@@ -51,7 +51,7 @@ def errorRate(exceptedPath, testPredRes):
 #     for i in y:
 #         i = 100 - int(i)
 #     plt.plot(x, y,
-#              color='green',ע
+#              color='greenע
 #              marker='o',
 #              linestyle='dashed',
 #              linewidth=2,
@@ -71,20 +71,20 @@ def createGraph():
         errorRateList = [0]
         mseList = [0]
     else:
-        title = "Uniform method"
+        title = "Equal Steps method"
         errorRateList = [data[Const.GraphType.ERROR_RATE][i] for i in range(0, rowsCsv)]
         mseList = [data[Const.GraphType.MSE][i] for i in range(0, rowsCsv)]
     for i in errorRateList:
         i = 100 - int(i)
     # width of the bars
-    barWidth = 0.1
+    barWidth = 0.4
 
     # The x position of bars
     r1 = np.arange(len(x))
     r2 = [x + barWidth for x in r1]
 
     # Create blue bars
-    plt.bar(r1, mseList, width=barWidth, color='green', edgecolor='black', capsize=7, label='MSE')
+    # plt.bar(r1, mseList, width=barWidth, color='green', edgecolor='black', capsize=7, label='MSE')
 
     # Create cyan bars
     plt.bar(r2, errorRateList, width=barWidth, color='blue', edgecolor='black', capsize=7, label='Accuracy')
@@ -96,8 +96,6 @@ def createGraph():
     # Show graphic
     plt.suptitle(title)
     plt.show()
-
-
 
 def convertFileTofraph(graph_file, fileType):
     data = pd.read_csv(graph_file)
